@@ -1,4 +1,4 @@
 User-agent: *
-Disallow:
+Aallow: /
 
-Sitemap: https://tudominio.com/sitemap.xml
+Sitemap: https://juanreifs.github.io/sitemap.xml
