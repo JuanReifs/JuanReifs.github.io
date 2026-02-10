@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitTracker Pro - Entrenamientos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><a href="index.html">FitTracker Pro</a></h1>
+            <p class="tagline">Tu compañero definitivo de fitness</p>
+        </header>
+        
+        <nav class="nav-tabs">
+            <a href="index.html" class="nav-tab">🔥 Calorías</a>
+            <a href="entrenamientos.html" class="nav-tab active">💪 Entrenamientos</a>
+            <a href="recomendaciones.html" class="nav-tab">🛍️ Recomendaciones</a>
+        </nav>
+        
+        <div class="card">
+            <h2>Mis Rutinas</h2>
+            <button onclick="openModal('create-routine-modal')">➕ Crear Rutina</button>
+            <div id="routines-list" class="item-list"></div>
+        </div>
+    </div>
+    
+    <!-- MODALES -->
+    
+    <!-- Modal: Crear Rutina -->
+    <div id="create-routine-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Crear Nueva Rutina</h3>
+                <div class="close-modal" onclick="closeModal('create-routine-modal')">×</div>
+            </div>
+            <div class="form-group">
+                <label>Nombre de la Rutina</label>
+                <input type="text" id="routine-name" placeholder="Ej: Rutina de Pecho">
+            </div>
+            <h4 style="color: var(--secondary); margin: 20px 0 10px 0;">Ejercicios</h4>
+            <div id="routine-exercises-list"></div>
+            <button class="btn-secondary btn-small" onclick="addExerciseToRoutine()">+ Añadir Ejercicio</button>
+            <br><br>
+            <button onclick="createRoutine()">Guardar Rutina</button>
+        </div>
+    </div>
+    
+    <!-- Modal: Crear Ejercicio Personalizado -->
+    <div id="create-exercise-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Crear Ejercicio Personalizado</h3>
+                <div class="close-modal" onclick="closeModal('create-exercise-modal')">×</div>
+            </div>
+            <div class="form-group">
+                <label>Nombre del Ejercicio</label>
+                <input type="text" id="custom-exercise-name" placeholder="Ej: Plancha lateral">
+            </div>
+            <div class="form-group">
+                <label>Unidad de Medida</label>
+                <input type="text" id="custom-exercise-unit" placeholder="Ej: segundos, metros, etc.">
+            </div>
+            <button onclick="createCustomExercise()">Crear Ejercicio</button>
+        </div>
+    </div>
+    
+    <!-- Modal: Ver/Editar Rutina -->
+    <div id="view-routine-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="view-routine-title">Rutina</h3>
+                <div class="close-modal" onclick="closeModal('view-routine-modal')">×</div>
+            </div>
+            <div id="view-routine-content"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
