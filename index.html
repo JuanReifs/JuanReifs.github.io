@@ -3,178 +3,734 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FitTracker Pro - Calorías</title>
+    <title>Portfolio Profesional - [Juan Reifs Garcia]</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+       <script src="script.js"></script>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1><a href="index.html">FitTracker Pro</a></h1>
-            <p class="tagline">Tu compañero definitivo de fitness</p>
-        </header>
-        
-        <nav class="nav-tabs">
-            <a href="index.html" class="nav-tab active">🔥 Calorías</a>
-            <a href="entrenamientos.html" class="nav-tab">💪 Entrenamientos</a>
-            <a href="recomendaciones.html" class="nav-tab">🛍️ Recomendaciones</a>
-        </nav>
-        
-        <div class="card">
-            <h2>Calculadora de Calorías</h2>
-            <div class="grid-2">
-                <div>
-                    <div class="form-group">
-                        <label>Edad</label>
-                        <input type="number" id="age" placeholder="Años">
-                    </div>
-                    <div class="form-group">
-                        <label>Peso (kg)</label>
-                        <input type="number" id="weight" placeholder="Kilogramos">
-                    </div>
-                    <div class="form-group">
-                        <label>Altura (cm)</label>
-                        <input type="number" id="height" placeholder="Centímetros">
-                    </div>
-                </div>
-                <div>
-                    <div class="form-group">
-                        <label>Sexo</label>
-                        <select id="gender">
-                            <option value="male">Masculino</option>
-                            <option value="female">Femenino</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Nivel de Actividad</label>
-                        <select id="activity">
-                            <option value="1.2">Sedentario</option>
-                            <option value="1.375">Ligero (1-3 días/semana)</option>
-                            <option value="1.55">Moderado (3-5 días/semana)</option>
-                            <option value="1.725">Activo (6-7 días/semana)</option>
-                            <option value="1.9">Muy Activo (2 veces al día)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Objetivo</label>
-                        <select id="goal">
-                            <option value="-500">Perder Peso (-500 cal)</option>
-                            <option value="0">Mantener Peso</option>
-                            <option value="500">Ganar Peso (+500 cal)</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <button onclick="calculateCalories()">Calcular Necesidades Calóricas</button>
-            
-            <div id="calorie-results" style="display: none; margin-top: 20px;">
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-value" id="bmr-value">0</div>
-                        <div class="stat-label">TMB (Metabolismo Basal)</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value" id="tdee-value">0</div>
-                        <div class="stat-label">TDEE (Gasto Total)</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value" id="target-value">0</div>
-                        <div class="stat-label">Objetivo Diario</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="card">
-            <h2>Registro Diario de Comidas</h2>
-            <div class="calorie-progress">
-                <div class="calorie-progress-bar" id="calorie-bar" style="width: 0%">
-                    <span id="consumed-calories">0</span> / <span id="target-calories">0</span> cal
-                </div>
-            </div>
-            
-            <div style="margin: 20px 0;">
-                <button onclick="openModal('add-meal-modal')">➕ Añadir Comida</button>
-                <button class="btn-secondary" onclick="openModal('create-food-modal')">🥗 Crear Alimento</button>
-                <button class="btn-secondary" onclick="openModal('create-recipe-modal')">🍳 Crear Receta</button>
-            </div>
-            
-            <div id="meals-log" class="item-list"></div>
-        </div>
-    </div>
-    
-    <!-- MODALES -->
-    
-    <!-- Modal: Añadir Comida -->
-    <div id="add-meal-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Añadir Comida al Registro</h3>
-                <div class="close-modal" onclick="closeModal('add-meal-modal')">×</div>
-            </div>
-            <div class="form-group">
-                <label>Seleccionar Alimento o Receta</label>
-                <select id="meal-select">
-                    <option value="">-- Selecciona --</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Cantidad (porciones)</label>
-                <input type="number" id="meal-quantity" value="1" min="0.1" step="0.1">
-            </div>
-            <button onclick="addMealToLog()">Añadir al Registro</button>
-        </div>
-    </div>
-    
-    <!-- Modal: Crear Alimento -->
-    <div id="create-food-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Crear Nuevo Alimento</h3>
-                <div class="close-modal" onclick="closeModal('create-food-modal')">×</div>
-            </div>
-            <div class="form-group">
-                <label>Nombre del Alimento</label>
-                <input type="text" id="food-name" placeholder="Ej: Pechuga de pollo">
-            </div>
-            <div class="form-group">
-                <label>Proteínas (g por 100g)</label>
-                <input type="number" id="food-protein" placeholder="Gramos">
-            </div>
-            <div class="form-group">
-                <label>Carbohidratos (g por 100g)</label>
-                <input type="number" id="food-carbs" placeholder="Gramos">
-            </div>
-            <div class="form-group">
-                <label>Grasas (g por 100g)</label>
-                <input type="number" id="food-fats" placeholder="Gramos">
-            </div>
-            <button onclick="createFood()">Guardar Alimento</button>
-        </div>
-    </div>
-    
-    <!-- Modal: Crear Receta -->
-    <div id="create-recipe-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Crear Nueva Receta</h3>
-                <div class="close-modal" onclick="closeModal('create-recipe-modal')">×</div>
-            </div>
-            <div class="form-group">
-                <label>Nombre de la Receta</label>
-                <input type="text" id="recipe-name" placeholder="Ej: Ensalada de pollo">
-            </div>
-            <div class="form-group">
-                <label>Porciones que produce</label>
-                <input type="number" id="recipe-servings" value="1" min="1">
-            </div>
-            <h4 style="color: var(--secondary); margin: 20px 0 10px 0;">Ingredientes</h4>
-            <div id="recipe-ingredients-list"></div>
-            <button class="btn-secondary btn-small" onclick="addRecipeIngredient()">+ Añadir Ingrediente</button>
-            <br><br>
-            <button onclick="createRecipe()">Guardar Receta</button>
-        </div>
+    <!-- Decoraciones circulares globales -->
+    <div class="global-decoration">
+        <div class="decoration-circle circle-1"></div>
+        <div class="decoration-circle circle-2"></div>
+        <div class="decoration-circle circle-3"></div>
     </div>
 
-    <script src="script.js"></script>
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-accent"></span>Portfolio<span class="logo-accent"></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link active">Inicio</a></li>
+                <li><a href="#carta" class="nav-link">Carta</a></li>                
+                <li><a href="#cv" class="nav-link">CV Digital</a></li>
+                <li><a href="#practicas" class="nav-link">Prácticas</a></li>
+                <li><a href="#temario" class="nav-link">Temario</a></li>
+                <li><a href="#memoria" class="nav-link">Memoria</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <!-- Foto de perfil + redes sociales -->
+            <div class="hero-image-social">
+                <img src="Imagenes/miCara.jpeg" alt="Mi Foto de Perfil" class="profile-pic">
+
+                <div class="hero-social">
+                    <a href="https://es.linkedin.com/in/juan-reifs-garc%C3%ADa-5b7a90393" target="_blank">
+                        <img src="Imagenes/logoLinkedIn.png" alt="LinkedIn" class="social-icon">
+                    </a>
+                    <a href="https://github.com/JuanReifs/" target="_blank">
+                        <img src="Imagenes/logoGithub.png" alt="GitHub" class="social-icon">
+                    </a>
+                    <a href="https://instagram.com" target="_blank">
+                        <img src="Imagenes/logoInstagram.png" alt="Instagram" class="social-icon">
+                    </a>
+                </div>
+            </div>
+
+            <!-- Contenido del hero -->
+            <div class="hero-content">
+                <div class="hero-badge">Desarrollador en Formación</div>
+                <h1 class="hero-title">
+                    <span class="title-line">Transformando</span>
+                    <span class="title-line title-accent">Ideas en Código</span>
+                </h1>
+                <p class="hero-description">
+                    Estudiante de Desarrollo de Aplicaciones con pasión por crear soluciones tecnológicas innovadoras y funcionales.
+                </p>
+                <div class="hero-cta">
+                    <a href="#cv" class="btn btn-primary">Ver CV</a>
+                    <a href="#practicas" class="btn btn-secondary">Proyectos</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="carta" class="section carta-section">
+        <div class="container-narrow">
+            <h2 class="section-title">Carta de Presentación</h2>
+            <div class="carta-content">
+                <div class="carta-header">
+                    <p class="carta-date">Madrid, febrero de 2026</p>
+                    <p class="carta-greeting">Un paso más allá del código: Mi visión como desarrollador:</p>
+                </div>
+
+                <div class="carta-body">
+                    <p class="carta-paragraph">
+                        ¡Hola! Soy <b>Juan Reifs García</b>. Actualmente me encuentro cursando el Grado Superior de <b>Desarrollo de Aplicaciones Multiplataforma (DAM)</b>, un camino que elegí por mi fascinación por crear soluciones digitales que sean tan funcionales como eficientes.
+
+                    </p>
+
+                    <h3 class="carta-subtitle">Tecnología con propósito y estrategia</h3>
+                    <p class="carta-paragraph">
+                     Mi perfil técnico se construye sobre una base sólida en lenguajes como <b>Java, JavaScript y SQL</b>, además de dominar los estándares de marcado <b>HTML, CSS y XML</b>. Sin embargo, mi curiosidad no se detiene en el plan de estudios. De forma autodidacta, exploro el desarrollo de videojuegos con <b>C# y C++</b> en motores como Unity y Unreal Engine, y disfruto profundizando en el control de sistemas mediante <b>Shell y CMD</b> para automatizar procesos que nos hagan la vida más fácil.
+                     
+                        Creo firmemente que el desarrollo actual debe ir de la mano de la innovación. Por ello, me he especializado en el uso de **Inteligencia Artificial** para la creación de bucles de trabajo y automatización de tareas (formándome con referentes como Jon Hernández). Esta visión, sumada a mi interés por el **SEO**, me permite entender el desarrollo de software no solo como escritura de código, sino como la creación de productos que deben ser visibles, eficientes y escalables.
+                    </p>
+
+                    <h3 class="carta-subtitle">Aspectos de mi Personalidad</h3>
+                    <p class="carta-paragraph">
+                        Me considero una persona analítica, metódica y con gran capacidad de aprendizaje autodidacta. Disfruto enfrentándome a nuevos desafíos técnicos y encuentro satisfacción en resolver problemas complejos mediante soluciones elegantes. Valoro el trabajo en equipo y la comunicación efectiva, entendiendo que los mejores proyectos nacen de la colaboración y el intercambio de ideas.
+                    </p>
+
+                    <h3 class="carta-subtitle">Empatía y equipo: Mi factor diferencial</h3>
+                    <p class="carta-paragraph">
+                        Entiendo el desarrollo como un deporte de equipo. He dedicado dos años específicos a certificar habilidades en **creatividad, empatía y comunicación** en el CES Juan Pablo II. Mi experiencia en voluntariados me ha enseñado que la paciencia y el saber escuchar son tan importantes para el éxito de un proyecto como una buena arquitectura de bases de datos. Disfruto colaborando y aportando una actitud positiva y resolutiva en cada grupo del que formo parte.                    </p>
+
+                    <h3 class="carta-subtitle">¿Qué busco ahora?</h3>
+                    <p class="carta-paragraph">
+                        Estoy a punto de dar el salto al mundo profesional con mis primeras 500 horas de prácticas, donde busco aplicar todo este aprendizaje en proyectos reales, especialmente en aquellos que desafíen mi capacidad de resolución de problemas o se adentren en el apasionante mundo de la programación interactiva.
+
+                        Te invito a explorar el resto de mi portfolio para conocer mis proyectos y ver cómo aplico estas herramientas en el día a día.
+                    </p>
+
+                    
+                </div>
+
+                <div class="carta-footer">
+                    <p class="carta-paragraph">
+                    Agradezco sinceramente el tiempo que has invertido en leer esto, te invito a leer mi CV y estaré encantado de ampliar cualquier información necesaria
+                    </p>
+                    <p class="carta-closing">Atentamente,</p>
+                    <p class="carta-signature">[Juan Reifs García]</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="cv" class="section cv-section">
+        <div class="container">
+            <h2 class="section-title">Currículum Vitae</h2>
+            <div class="cv-grid">
+                <div class="cv-sidebar">
+                    <div class="cv-photo">
+                        <div class="photo-placeholder">
+                            <svg width="100" height="100" viewBox="0 0 100 100">
+                                <circle cx="50" cy="35" r="20" fill="#2c3e50"/>
+                                <path d="M 20 80 Q 50 60 80 80" fill="#2c3e50"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="cv-info-box">
+                        <h3 class="info-title">Datos Personales</h3>
+                        <div class="info-item">
+                            <span class="info-label">Email:</span>
+                            <span class="info-value">reifsgarcia.juan@gmail.com</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Teléfono:</span>
+                            <span class="info-value">+34 644 74 90 32</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Ubicación:</span>
+                            <span class="info-value">Madrid, España</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">LinkedIn:</span>
+                            <span class="info-value">linkedin.com/in/tuperfil</span>
+                        </div>
+                    </div>
+
+                    <div class="cv-info-box">
+                        <h3 class="info-title">Habilidades Técnicas</h3>
+                        <div class="skills-list">
+                            <div class="skill-item">
+                                <span class="skill-name">HTML5 & CSS3</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">JavaScript</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">Java</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 70%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">Git & GitHub</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 80%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">SQL</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 35%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cv-info-box">
+                        <h3 class="info-title">Idiomas</h3>
+                        <div class="language-item">
+                            <span class="language-name">Español</span>
+                            <span class="language-level">Nativo</span>
+                        </div>
+                        <div class="language-item">
+                            <span class="language-name">Inglés</span>
+                            <span class="language-level">B2 - Intermedio Alto</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cv-main">
+                    <div class="cv-section-block">
+                        <h3 class="cv-section-title">Perfil Profesional</h3>
+                        <p class="cv-text">
+                            Estudiante de Desarrollo de Aplicaciones Multiplataforma con gran curiosidad y
+                            pasión por el aprendizaje práctico. Interesado en especializarme en múltiples
+                            áreas del desarrollo tecnológico en lugar de enfocarme únicamente en una.
+                            Actualmente exploro la automatización mediante IA, creación de flujos de
+                            trabajo inteligentes y servicios en la nube como AWS, ampliando mi formación
+                            más allá del ámbito académico.                        </p>
+                    </div>
+
+                    <div class="cv-section-block">
+                        <h3 class="cv-section-title">Formación Académica</h3>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-marker"></div>
+                                <div class="timeline-content">
+                                    <div class="timeline-date">2024 - Actualidad</div>
+                                    <h4 class="timeline-title">Ciclo Formativo de Grado Superior</h4>
+                                    <p class="timeline-subtitle">Desarrollo de Aplicaciones</p>
+                                    <p class="timeline-location">[Nombre del Centro Educativo]</p>
+                                    <p class="timeline-description">
+                                        Formación técnica en desarrollo de aplicaciones multiplataforma, bases de datos, programación orientada a objetos y sistemas informáticos.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-marker"></div>
+                                <div class="timeline-content">
+                                    <div class="timeline-date">2020 - 2024</div>
+                                    <h4 class="timeline-title">Bachillerato</h4>
+                                    <p class="timeline-subtitle">Ciencias y Tecnología</p>
+                                    <p class="timeline-location">[Nombre del Instituto]</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cv-section-block">
+                        <h3 class="cv-section-title">Experiencia</h3>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-marker"></div>
+                                <div class="timeline-content">
+                                    <div class="timeline-date">Verano 2024</div>
+                                    <h4 class="timeline-title">Proyecto Personal - Aplicación Web</h4>
+                                    <p class="timeline-description">
+                                        Desarrollo de una aplicación web responsive utilizando HTML, CSS y JavaScript. Implementación de diseño adaptativo y optimización de rendimiento.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-marker"></div>
+                                <div class="timeline-content">
+                                    <div class="timeline-date">2023</div>
+                                    <h4 class="timeline-title">Colaboración en Proyectos Educativos</h4>
+                                    <p class="timeline-description">
+                                        Participación en proyectos grupales de programación y resolución de problemas técnicos.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cv-section-block">
+                        <h3 class="cv-section-title">Certificaciones y Cursos</h3>
+                        <ul class="cv-list">
+                            <li>Fundamentos de HTML y CSS - Online</li>
+                            <li>Introducción a JavaScript - Online</li>
+                            <li>Git y Control de Versiones - Online</li>
+                        </ul>
+                    </div>
+                      <div class="cv-section-block">
+                        <a href="CV_Juan_Reifs_Garcia.pdf" target="_blank">
+                             <h3 class="cv-section-title">Descarga el CV</h3>
+                        </a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="practicas" class="section practicas-section">
+        <div class="container">
+            <h2 class="section-title">Portfolio de Prácticas</h2>
+            <p class="section-subtitle">Proyectos desarrollados durante el primer curso</p>
+            
+            <div class="practicas-grid">
+                <div class="practica-card">
+                    <div class="practica-header">
+                        <div class="practica-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40">
+                                <rect x="5" y="5" width="30" height="30" rx="3" fill="currentColor"/>
+                                <path d="M 15 12 L 25 20 L 15 28 Z" fill="white"/>
+                            </svg>
+                        </div>
+                        <span class="practica-tag">Individual</span>
+                    </div>
+                    <h3 class="practica-title">Sistema de Gestión de Archivos</h3>
+                    <p class="practica-subject">Sistemas Informáticos</p>
+                    <p class="practica-description">
+                        Desarrollo de un sistema en Python para gestionar archivos y directorios mediante línea de comandos. Implementa funcionalidades de creación, lectura, actualización y eliminación de archivos, con gestión de permisos y registro de actividad.
+                    </p>
+                    <div class="practica-tech">
+                        <span class="tech-badge">Python</span>
+                        <span class="tech-badge">Linux</span>
+                        <span class="tech-badge">Bash</span>
+                    </div>
+                    <div class="practica-footer">
+                        <a href="#" class="practica-link">Ver código →</a>
+                    </div>
+                </div>
+
+                <div class="practica-card">
+                    <div class="practica-header">
+                        <div class="practica-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40">
+                                <circle cx="20" cy="20" r="15" fill="currentColor"/>
+                                <path d="M 15 15 L 25 15 L 20 25 Z" fill="white"/>
+                            </svg>
+                        </div>
+                        <span class="practica-tag">Individual</span>
+                    </div>
+                    <h3 class="practica-title">Calculadora Web Interactiva</h3>
+                    <p class="practica-subject">Programación Web</p>
+                    <p class="practica-description">
+                        Aplicación web responsive que simula una calculadora científica. Utiliza JavaScript para implementar operaciones matemáticas complejas, historial de operaciones y diseño adaptable a diferentes dispositivos.
+                    </p>
+                    <div class="practica-tech">
+                        <span class="tech-badge">HTML</span>
+                        <span class="tech-badge">CSS</span>
+                        <span class="tech-badge">JavaScript</span>
+                    </div>
+                    <div class="practica-footer">
+                        <a href="#" class="practica-link">Ver demo →</a>
+                    </div>
+                </div>
+
+                <div class="practica-card practica-grupal">
+                    <div class="practica-header">
+                        <div class="practica-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40">
+                                <rect x="8" y="8" width="24" height="24" rx="2" fill="currentColor"/>
+                                <circle cx="15" cy="15" r="3" fill="white"/>
+                                <circle cx="25" cy="15" r="3" fill="white"/>
+                                <circle cx="15" cy="25" r="3" fill="white"/>
+                                <circle cx="25" cy="25" r="3" fill="white"/>
+                            </svg>
+                        </div>
+                        <span class="practica-tag practica-tag-grupal">Grupal</span>
+                    </div>
+                    <h3 class="practica-title">Sistema de Gestión de Biblioteca</h3>
+                    <p class="practica-subject">Bases de Datos</p>
+                    <p class="practica-description">
+                        Proyecto colaborativo para crear un sistema completo de gestión bibliotecaria. Incluye base de datos relacional, interfaz web para préstamos, búsqueda de libros y panel de administración.
+                    </p>
+                    <div class="practica-tech">
+                        <span class="tech-badge">MySQL</span>
+                        <span class="tech-badge">PHP</span>
+                        <span class="tech-badge">Bootstrap</span>
+                    </div>
+                    <div class="practica-team">
+                        <p class="team-title">Equipo del proyecto:</p>
+                        <div class="team-members">
+                            <a href="carta-companero1.html" class="team-member">María García</a>
+                            <a href="carta-companero2.html" class="team-member">Carlos López</a>
+                            <a href="carta-companero3.html" class="team-member">Ana Martínez</a>
+                        </div>
+                    </div>
+                    <div class="practica-footer">
+                        <a href="#" class="practica-link">Ver proyecto →</a>
+                    </div>
+                </div>
+
+                <div class="practica-card">
+                    <div class="practica-header">
+                        <div class="practica-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40">
+                                <path d="M 5 20 L 15 10 L 25 20 L 15 30 Z" fill="currentColor"/>
+                                <path d="M 15 20 L 25 10 L 35 20 L 25 30 Z" fill="currentColor" opacity="0.7"/>
+                            </svg>
+                        </div>
+                        <span class="practica-tag">Individual</span>
+                    </div>
+                    <h3 class="practica-title">Algoritmos de Ordenación</h3>
+                    <p class="practica-subject">Programación</p>
+                    <p class="practica-description">
+                        Implementación y análisis comparativo de diferentes algoritmos de ordenación (QuickSort, MergeSort, BubbleSort). Incluye visualización gráfica del proceso y medición de tiempos de ejecución.
+                    </p>
+                    <div class="practica-tech">
+                        <span class="tech-badge">Java</span>
+                        <span class="tech-badge">Algoritmos</span>
+                    </div>
+                    <div class="practica-footer">
+                        <a href="#" class="practica-link">Ver código →</a>
+                    </div>
+                </div>
+
+                <div class="practica-card">
+                    <div class="practica-header">
+                        <div class="practica-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40">
+                                <rect x="10" y="5" width="20" height="30" rx="2" fill="currentColor"/>
+                                <rect x="13" y="8" width="14" height="20" fill="white"/>
+                            </svg>
+                        </div>
+                        <span class="practica-tag">Individual</span>
+                    </div>
+                    <h3 class="practica-title">Portfolio Personal (Este Proyecto)</h3>
+                    <p class="practica-subject">Lenguajes de Marcas</p>
+                    <p class="practica-description">
+                        Sitio web profesional desarrollado con HTML5 y CSS3. Incluye diseño responsive, animaciones CSS, navegación fluida y estructura semántica. Proyecto actual que integra todos los conocimientos del curso.
+                    </p>
+                    <div class="practica-tech">
+                        <span class="tech-badge">HTML5</span>
+                        <span class="tech-badge">CSS3</span>
+                        <span class="tech-badge">Responsive</span>
+                    </div>
+                </div>
+
+                <div class="practica-card">
+                    <div class="practica-header">
+                        <div class="practica-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40">
+                                <circle cx="20" cy="20" r="12" stroke="currentColor" stroke-width="3" fill="none"/>
+                                <path d="M 20 8 L 20 20 L 28 20" stroke="currentColor" stroke-width="3"/>
+                            </svg>
+                        </div>
+                        <span class="practica-tag">Individual</span>
+                    </div>
+                    <h3 class="practica-title">Aplicación de Lista de Tareas</h3>
+                    <p class="practica-subject">Programación Web</p>
+                    <p class="practica-description">
+                        To-Do List interactiva con almacenamiento local. Permite crear, editar, completar y eliminar tareas. Incluye filtros por estado, contador de tareas y persistencia de datos usando LocalStorage.
+                    </p>
+                    <div class="practica-tech">
+                        <span class="tech-badge">JavaScript</span>
+                        <span class="tech-badge">LocalStorage</span>
+                        <span class="tech-badge">DOM</span>
+                    </div>
+                    <div class="practica-footer">
+                        <a href="#" class="practica-link">Ver demo →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="temario" class="section temario-section">
+        <div class="container">
+            <h2 class="section-title">Temario del Curso</h2>
+            <p class="section-subtitle">Contenidos estudiados durante el primer y segundo trimestre</p>
+            
+            <div class="asignatura-block">
+                <div class="asignatura-header">
+                    <h3 class="asignatura-title">Sistemas Informáticos</h3>
+                    <p class="asignatura-description">Fundamentos de arquitectura de computadores, sistemas operativos y administración de sistemas</p>
+                </div>
+
+                <div class="temas-grid">
+                    <div class="tema-card">
+                        <div class="tema-number">01</div>
+                        <h4 class="tema-title">Arquitectura de Computadores</h4>
+                        <p class="tema-content">
+                            Estudio de los componentes fundamentales de un ordenador: CPU, memoria RAM, almacenamiento, buses de datos. Análisis del modelo de Von Neumann y arquitecturas modernas. Comprensión del ciclo de instrucción y jerarquía de memoria.
+                        </p>
+                    </div>
+
+                    <div class="tema-card">
+                        <div class="tema-number">02</div>
+                        <h4 class="tema-title">Sistemas Operativos</h4>
+                        <p class="tema-content">
+                            Introducción a los sistemas operativos: Windows, Linux y macOS. Gestión de procesos, memoria y archivos. Sistemas de archivos (NTFS, ext4, FAT32). Comandos básicos de terminal y shell scripting.
+                        </p>
+                    </div>
+
+                    <div class="tema-card">
+                        <div class="tema-number">03</div>
+                        <h4 class="tema-title">Virtualización</h4>
+                        <p class="tema-content">
+                            Conceptos de virtualización y máquinas virtuales. Uso de VirtualBox y VMware. Creación y configuración de entornos virtualizados. Ventajas de la virtualización: aislamiento, snapshots y portabilidad.
+                        </p>
+                    </div>
+
+                    <div class="tema-card">
+                        <div class="tema-number">04</div>
+                        <h4 class="tema-title">Redes y Conectividad</h4>
+                        <p class="tema-content">
+                            Fundamentos de redes: topologías, protocolos TCP/IP, modelo OSI. Configuración de red en diferentes sistemas operativos. Direccionamiento IP, máscaras de subred y gateway. Herramientas de diagnóstico: ping, traceroute, netstat.
+                        </p>
+                    </div>
+
+                    <div class="tema-card">
+                        <div class="tema-number">05</div>
+                        <h4 class="tema-title">Seguridad Básica</h4>
+                        <p class="tema-content">
+                            Conceptos de seguridad informática: autenticación, autorización, cifrado. Gestión de permisos en sistemas Unix/Linux. Buenas prácticas de seguridad: contraseñas, actualizaciones, copias de seguridad. Introducción a firewalls y antivirus.
+                        </p>
+                    </div>
+
+                    <div class="tema-card">
+                        <div class="tema-number">06</div>
+                        <h4 class="tema-title">Administración de Sistemas</h4>
+                        <p class="tema-content">
+                            Instalación y configuración de sistemas operativos. Gestión de usuarios y grupos. Monitorización del sistema: uso de CPU, memoria y disco. Automatización de tareas mediante scripts. Logs del sistema y resolución de problemas.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="asignatura-block">
+                <div class="asignatura-header">
+                    <h3 class="asignatura-title">Programación</h3>
+                    <p class="asignatura-description">Fundamentos de programación y desarrollo de algoritmos</p>
+                </div>
+
+                <div class="temas-grid">
+                    <div class="tema-card">
+                        <div class="tema-number">01</div>
+                        <h4 class="tema-title">Introducción a la Programación</h4>
+                        <p class="tema-content">
+                            Conceptos básicos: algoritmos, variables, tipos de datos. Estructuras de control: condicionales (if, else, switch) y bucles (for, while). Operadores lógicos y aritméticos. Diagramas de flujo y pseudocódigo.
+                        </p>
+                    </div>
+
+                    <div class="tema-card">
+                        <div class="tema-number">02</div>
+                        <h4 class="tema-title">Funciones y Modularidad</h4>
+                        <p class="tema-content">
+                            Definición y llamada de funciones. Parámetros y valores de retorno. Ámbito de variables (scope). Recursividad. Ventajas de la programación modular: reutilización, mantenibilidad y legibilidad del código.
+                        </p>
+                    </div>
+
+                    <div class="tema-card">
+                        <div class="tema-number">03</div>
+                        <h4 class="tema-title">Estructuras de Datos</h4>
+                        <p class="tema-content">
+                            Arrays y listas. Matrices multidimensionales. Pilas y colas. Diccionarios/mapas. Operaciones básicas: inserción, eliminación, búsqueda. Complejidad algorítmica y eficiencia.
+                        </p>
+                    </div>
+
+                    <div class="tema-card">
+                        <div class="tema-number">04</div>
+                        <h4 class="tema-title">Programación Orientada a Objetos</h4>
+                        <p class="tema-content">
+                            Clases y objetos. Atributos y métodos. Encapsulación, herencia y polimorfismo. Constructores y destructores. Relaciones entre clases: composición y agregación. Principios SOLID básicos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="memoria" class="section memoria-section">
+        <div class="container-narrow">
+            <h2 class="section-title">Memoria del Proyecto</h2>
+            
+            <div class="memoria-intro">
+                <p class="memoria-text">
+                    A continuación se presenta la memoria completa del proyecto Portfolio Profesional, donde se detallan todos los aspectos del desarrollo, implementación y resultados obtenidos.
+                </p>
+            </div>
+
+            <div class="memoria-download">
+                <div class="download-card">
+                    <div class="download-icon">
+                        <svg width="60" height="60" viewBox="0 0 60 60">
+                            <rect x="10" y="5" width="40" height="50" rx="3" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <line x1="18" y1="15" x2="42" y2="15" stroke="currentColor" stroke-width="2"/>
+                            <line x1="18" y1="23" x2="42" y2="23" stroke="currentColor" stroke-width="2"/>
+                            <line x1="18" y1="31" x2="35" y2="31" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3 class="download-title">Descargar Memoria Completa</h3>
+                    <p class="download-description">Documento PDF con la memoria completa del proyecto</p>
+                    <a href="#" class="btn btn-primary download-btn">
+                        <span>Descargar PDF</span>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M10 3 L10 13 M10 13 L6 9 M10 13 L14 9"/>
+                            <path d="M4 16 L16 16" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="memoria-content">
+                <div class="memoria-section">
+                    <h3 class="memoria-section-title">1. Resumen Ejecutivo</h3>
+                    <div class="memoria-box">
+                        <p><strong>Título del Proyecto:</strong> Portfolio Profesional - Presentación Digital para Candidaturas</p>
+                        <p><strong>Autor:</strong> JUan Reifs García</p>
+                        <p><strong>Centro Educativo:</strong> CES Juan Pablo Segundo</p>
+                        <p><strong>Fecha:</strong> Febrero 2026</p>
+                    </div>
+                    <p class="memoria-text">
+                        Este proyecto consiste en el desarrollo de un sitio web portfolio profesional utilizando exclusivamente HTML5 y CSS3. El objetivo principal es crear una plataforma digital que sirva como carta de presentación profesional, integrando CV digital, carta de presentación, muestras de trabajos realizados y documentación técnica del proyecto.
+                    </p>
+                </div>
+
+                <div class="memoria-section">
+                    <h3 class="memoria-section-title">2. Objetivos del Proyecto</h3>
+                    <ul class="memoria-list">
+                        <li>Crear un portfolio web profesional y funcional usando HTML5 y CSS3</li>
+                        <li>Demostrar competencias técnicas en desarrollo web frontend</li>
+                        <li>Presentar de forma efectiva información profesional y académica</li>
+                        <li>Implementar diseño responsive adaptable a diferentes dispositivos</li>
+                        <li>Aplicar principios de diseño UI/UX para mejorar la experiencia del usuario</li>
+                        <li>Documentar el proceso de desarrollo de forma exhaustiva</li>
+                    </ul>
+                </div>
+
+                <div class="memoria-section">
+                    <h3 class="memoria-section-title">3. Metodología de Trabajo</h3>
+                    <p class="memoria-text">
+                        El desarrollo del proyecto se ha estructurado en las siguientes fases:
+                    </p>
+                    <div class="metodologia-timeline">
+                        <div class="metodologia-item">
+                            <div class="metodologia-fase">Fase 1</div>
+                            <div class="metodologia-content">
+                                <h4>Planificación y Diseño</h4>
+                                <p>Definición de estructura del sitio, wireframes, paleta de colores y tipografías. Análisis de requisitos y especificaciones del proyecto.</p>
+                            </div>
+                        </div>
+                        <div class="metodologia-item">
+                            <div class="metodologia-fase">Fase 2</div>
+                            <div class="metodologia-content">
+                                <h4>Desarrollo HTML</h4>
+                                <p>Creación de la estructura semántica del sitio. Implementación de todas las secciones requeridas con etiquetas HTML5 apropiadas.</p>
+                            </div>
+                        </div>
+                        <div class="metodologia-item">
+                            <div class="metodologia-fase">Fase 3</div>
+                            <div class="metodologia-content">
+                                <h4>Estilado CSS</h4>
+                                <p>Aplicación de estilos, diseño responsive, animaciones y efectos visuales. Optimización para diferentes tamaños de pantalla.</p>
+                            </div>
+                        </div>
+                        <div class="metodologia-item">
+                            <div class="metodologia-fase">Fase 4</div>
+                            <div class="metodologia-content">
+                                <h4>Pruebas y Refinamiento</h4>
+                                <p>Testing en múltiples navegadores y dispositivos. Corrección de bugs, optimización de rendimiento y ajustes finales.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="memoria-section">
+                    <h3 class="memoria-section-title">4. Tecnologías Utilizadas</h3>
+                    <div class="tecnologias-grid">
+                        <div class="tecnologia-item">
+                            <h4>HTML5</h4>
+                            <p>Lenguaje de marcado para la estructura del contenido. Uso de etiquetas semánticas (header, nav, section, article, footer).</p>
+                        </div>
+                        <div class="tecnologia-item">
+                            <h4>CSS3</h4>
+                            <p>Hojas de estilo para diseño visual. Flexbox y Grid para layouts. Animaciones y transiciones CSS. Variables CSS para mantenibilidad.</p>
+                        </div>
+                        <div class="tecnologia-item">
+                            <h4>Google Fonts</h4>
+                            <p>Tipografías web profesionales: Playfair Display para títulos y Source Sans 3 para el cuerpo del texto.</p>
+                        </div>
+                        <div class="tecnologia-item">
+                            <h4>Visual Studio Code</h4>
+                            <p>Editor de código utilizado para el desarrollo del proyecto.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="memoria-section">
+                    <h3 class="memoria-section-title">5. Estructura del Proyecto</h3>
+                    <p class="memoria-text">El sitio web se compone de las siguientes secciones principales:</p>
+                    <ul class="memoria-list">
+                        <li><strong>Página de Inicio (Hero):</strong> Presentación impactante con llamadas a la acción</li>
+                        <li><strong>CV Digital:</strong> Currículum completo con información personal, formación, experiencia y habilidades</li>
+                        <li><strong>Carta de Presentación:</strong> Documento formal detallando motivaciones y competencias</li>
+                        <li><strong>Portfolio de Prácticas:</strong> Muestra de proyectos realizados durante el curso</li>
+                        <li><strong>Temario:</strong> Contenidos estudiados en las asignaturas del curso</li>
+                        <li><strong>Memoria:</strong> Documentación completa del proyecto</li>
+                    </ul>
+                </div>
+
+                <div class="memoria-section">
+                    <h3 class="memoria-section-title">6. Conclusiones</h3>
+                    <p class="memoria-text">
+                        El desarrollo de este proyecto ha permitido aplicar y consolidar conocimientos fundamentales de desarrollo web frontend. Se ha conseguido crear un portfolio profesional completamente funcional utilizando únicamente HTML5 y CSS3, demostrando que es posible crear interfaces modernas y atractivas sin necesidad de frameworks o librerías adicionales.
+                    </p>
+                    <p class="memoria-text">
+                        Entre los aprendizajes más relevantes destacan: el uso efectivo de Flexbox y CSS Grid para layouts complejos, la implementación de diseño responsive mediante media queries, la aplicación de animaciones CSS para mejorar la experiencia de usuario, y la importancia de la semántica HTML para la accesibilidad y el SEO.
+                    </p>
+                    <p class="memoria-text">
+                        Como líneas de trabajo futuro, se plantea la incorporación de JavaScript para añadir interactividad avanzada, la optimización del rendimiento mediante técnicas de lazy loading, y la implementación de un sistema de temas claro/oscuro.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4 class="footer-title">Portfolio Profesional</h4>
+                    <p class="footer-text">Desarrollado con HTML5 y CSS3</p>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">Contacto</h4>
+                    <p class="footer-text">tucorreo@ejemplo.com</p>
+                    <p class="footer-text">+34 600 000 000</p>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">Redes Sociales</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link">LinkedIn</a>
+                        <a href="#" class="social-link">GitHub</a>
+                        <a href="#" class="social-link">Twitter</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 [Tu Nombre]. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
