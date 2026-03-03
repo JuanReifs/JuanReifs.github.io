@@ -119,8 +119,8 @@
             </p>
             
             <div class="error-actions">
-                <a href="/" class="error-btn error-btn-primary">Ir al inicio</a>
-                <a href="/proyectos.html" class="error-btn error-btn-secondary">Ver proyectos</a>
+                <a href="index.html" class="error-btn error-btn-primary">Ir al inicio</a>
+                <a href="contacto.html" class="error-btn error-btn-secondary">Ver proyectos</a>
             </div>
             
             <div class="redirect-info">
@@ -130,25 +130,51 @@
         </div>
     </div>
 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXX"></script>
     <script>
-        // Redirect después de 5 segundos
-        setTimeout(() => {
-            window.location.href = '/';
-        }, 5000);
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXX');
+    </script>
 
+    <script>
         // Registrar el error 404 en Google Analytics
-        if (window.gtag) {
-            gtag('event', '404_error', {
-                'page_path': window.location.pathname,
-                'page_title': document.title
-            });
-        }
+        gtag('event', '404_error', {
+            'page_path': window.location.pathname,
+            'page_title': document.title,
+            'referrer': document.referrer
+        });
 
         // Log de error en consola para debugging
-        console.error('Error 404:', {
+        console.error('❌ Error 404:', {
             requested_url: window.location.href,
             referer: document.referrer,
-            timestamp: new Date().toISOString()
+            timestamp: new Date().toISOString(),
+            user_agent: navigator.userAgent
+        });
+
+        // Redirect después de 5 segundos
+        let countdown = 5;
+        const countdownElement = document.querySelector('.redirect-info p:first-child');
+        
+        const interval = setInterval(() => {
+            countdown--;
+            if (countdownElement) {
+                countdownElement.textContent = `⏱️ Serás redirigido al inicio en ${countdown} segundo${countdown !== 1 ? 's' : ''}...`;
+            }
+            
+            if (countdown <= 0) {
+                clearInterval(interval);
+                window.location.href = '/';
+            }
+        }, 1000);
+
+        // Si el usuario hace click en un botón, cancela el redirect automático
+        document.querySelectorAll('.error-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                clearInterval(interval);
+            });
         });
     </script>
 </body>
