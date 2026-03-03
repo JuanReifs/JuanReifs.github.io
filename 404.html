@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Página no encontrada - Error 404">
+    <meta http-equiv="refresh" content="5; url=/">
+    <meta name="robots" content="noindex, nofollow">
+    
+    <title>Página no encontrada - Error 404</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .error-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .error-content {
+            text-align: center;
+            color: white;
+            max-width: 600px;
+        }
+        
+        .error-code {
+            font-size: 120px;
+            font-weight: bold;
+            line-height: 1;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .error-message {
+            font-size: 32px;
+            margin: 20px 0;
+            font-weight: 300;
+        }
+        
+        .error-description {
+            font-size: 18px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .error-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .error-btn {
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+        }
+        
+        .error-btn-primary {
+            background: white;
+            color: #667eea;
+        }
+        
+        .error-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .error-btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .error-btn-secondary:hover {
+            background: white;
+            color: #667eea;
+        }
+        
+        .redirect-info {
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 80px;
+            }
+            
+            .error-message {
+                font-size: 24px;
+            }
+            
+            .error-description {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-content">
+            <h1 class="error-code">404</h1>
+            <p class="error-message">Página no encontrada</p>
+            <p class="error-description">
+                Lo sentimos, la página que buscas no existe o ha sido movida.
+            </p>
+            
+            <div class="error-actions">
+                <a href="/" class="error-btn error-btn-primary">Ir al inicio</a>
+                <a href="/proyectos.html" class="error-btn error-btn-secondary">Ver proyectos</a>
+            </div>
+            
+            <div class="redirect-info">
+                <p>⏱️ Serás redirigido al inicio en 5 segundos...</p>
+                <p>Si no se redirige automáticamente, haz clic en los botones arriba.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Redirect después de 5 segundos
+        setTimeout(() => {
+            window.location.href = '/';
+        }, 5000);
+
+        // Registrar el error 404 en Google Analytics
+        if (window.gtag) {
+            gtag('event', '404_error', {
+                'page_path': window.location.pathname,
+                'page_title': document.title
+            });
+        }
+
+        // Log de error en consola para debugging
+        console.error('Error 404:', {
+            requested_url: window.location.href,
+            referer: document.referrer,
+            timestamp: new Date().toISOString()
+        });
+    </script>
+</body>
+</html>

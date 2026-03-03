@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contacta con Juan Reifs García. Formulario de contacto para consultas sobre proyectos y colaboraciones.">
+    <meta name="keywords" content="contacto, formulario, colaboración, proyectos">
+    <meta name="author" content="Juan Reifs García">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://juanreifs.github.io/contacto.html">
+    <meta property="og:title" content="Contacto - Juan Reifs García">
+    <meta property="og:description" content="Envía un mensaje a Juan Reifs para consultas sobre proyectos">
+    <meta name="robots" content="index, follow">
+    <meta name="canonical" content="https://juanreifs.github.io/contacto.html">
+    
+    <title>Contacto - Juan Reifs García | Desarrollador</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXX');
+    </script>
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        "name": "Contacto",
+        "url": "https://juanreifs.github.io/contacto.html",
+        "creator": {
+            "@type": "Person",
+            "name": "Juan Reifs García",
+            "email": "reifsgarcia.juan@gmail.com",
+            "telephone": "+34 644 74 90 32"
+        }
+    }
+    </script>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+    
+    <nav class="main-nav" role="navigation" aria-label="Menú principal">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html" class="logo-link">
+                    <span class="logo-accent"></span>Portfolio<span class="logo-accent"></span>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Inicio</a></li>
+                <li><a href="sobremi.html" class="nav-link">Sobre mí</a></li>
+                <li><a href="proyectos.html" class="nav-link">Proyectos</a></li>
+                <li><a href="blog.html" class="nav-link">Blog</a></li>
+                <li><a href="contacto.html" class="nav-link active" data-section="contact">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main id="main-content">
+        <section class="page-header" aria-labelledby="page-title">
+            <div class="container">
+                <h1 id="page-title">Contacta conmigo</h1>
+                <p class="subtitle">Estoy disponible para consultas y proyectos</p>
+            </div>
+        </section>
+
+        <section class="contact-section" aria-labelledby="contact-heading">
+            <div class="container">
+                <div class="contact-content">
+                    <!-- Información de contacto -->
+                    <aside class="contact-info" aria-label="Información de contacto">
+                        <h2 id="contact-heading">Información de contacto</h2>
+                        
+                        <div class="info-block">
+                            <h3>📧 Email</h3>
+                            <a href="mailto:reifsgarcia.juan@gmail.com" class="contact-link">reifsgarcia.juan@gmail.com</a>
+                        </div>
+                        
+                        <div class="info-block">
+                            <h3>📞 Teléfono</h3>
+                            <a href="tel:+34644749032" class="contact-link">+34 644 74 90 32</a>
+                        </div>
+                        
+                        <div class="info-block">
+                            <h3>📍 Ubicación</h3>
+                            <p>Madrid, España</p>
+                        </div>
+                        
+                        <div class="info-block">
+                            <h3>🌐 Redes Sociales</h3>
+                            <div class="social-links">
+                                <a href="https://linkedin.com/in/juan-reifs" rel="external" aria-label="LinkedIn">LinkedIn</a>
+                                <a href="https://github.com/JuanReifs" rel="external" aria-label="GitHub">GitHub</a>
+                                <a href="https://instagram.com" rel="external" aria-label="Instagram">Instagram</a>
+                            </div>
+                        </div>
+                        
+                        <div class="info-block">
+                            <h3>⏰ Disponibilidad</h3>
+                            <p>Respondo mensajes en 24 horas<br>Horario: Lunes a Viernes 9:00 - 18:00</p>
+                        </div>
+                    </aside>
+
+                    <!-- Formulario de contacto -->
+                    <form id="contact-form" class="contact-form" aria-labelledby="form-heading">
+                        <h2 id="form-heading">Envía un mensaje</h2>
+                        
+                        <div class="form-group">
+                            <label for="name">Nombre *</label>
+                            <input type="text" id="name" name="name" required aria-required="true" aria-describedby="name-help">
+                            <small id="name-help">Requerido</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required aria-required="true" aria-describedby="email-help">
+                            <small id="email-help">Requerido - Email válido</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Teléfono (opcional)</label>
+                            <input type="tel" id="phone" name="phone" aria-describedby="phone-help">
+                            <small id="phone-help">Formato: +34 123 45 67 89</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Asunto *</label>
+                            <select id="subject" name="subject" required aria-required="true">
+                                <option value="">-- Selecciona un asunto --</option>
+                                <option value="consulta">Consulta general</option>
+                                <option value="proyecto">Propuesta de proyecto</option>
+                                <option value="colaboracion">Colaboración</option>
+                                <option value="empleo">Oportunidad laboral</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Mensaje *</label>
+                            <textarea id="message" name="message" rows="6" required aria-required="true" aria-describedby="message-help"></textarea>
+                            <small id="message-help">Mínimo 10 caracteres</small>
+                        </div>
+                        
+                        <div class="form-group checkbox">
+                            <input type="checkbox" id="privacy" name="privacy" required aria-required="true">
+                            <label for="privacy">Acepto la política de privacidad y protección de datos *</label>
+                        </div>
+                        
+                        <div id="form-status" class="form-status" role="alert" aria-live="polite" style="display: none;"></div>
+                        
+                        <button type="submit" class="btn btn-primary" aria-label="Enviar formulario">Enviar mensaje</button>
+                        <button type="reset" class="btn btn-secondary" aria-label="Limpiar formulario">Limpiar</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section" aria-labelledby="faq-heading">
+            <div class="container">
+                <h2 id="faq-heading">Preguntas frecuentes</h2>
+                
+                <div class="faq-list">
+                    <details class="faq-item">
+                        <summary>¿Cuál es el tiempo de respuesta?</summary>
+                        <p>Intento responder todos los mensajes en un plazo máximo de 24 horas hábiles.</p>
+                    </details>
+                    
+                    <details class="faq-item">
+                        <summary>¿Aceptas proyectos freelance?</summary>
+                        <p>Sí, estoy disponible para proyectos freelance y colaboraciones. Depende de la disponibilidad y naturaleza del proyecto.</p>
+                    </details>
+                    
+                    <details class="faq-item">
+                        <summary>¿Cuáles son tus áreas de especialidad?</summary>
+                        <p>Desarrollo web (Frontend y Backend), Java, JavaScript, Python, automatización con IA y desarrollo multiplataforma.</p>
+                    </details>
+                    
+                    <details class="faq-item">
+                        <summary>¿Trabajas con startups?</summary>
+                        <p>Sí, me interesa colaborar con startups y proyectos innovadores. Contacta para discutir tu idea.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li><a href="mailto:reifsgarcia.juan@gmail.com">reifsgarcia.juan@gmail.com</a></li>
+                        <li><a href="tel:+34644749032">+34 644 74 90 32</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="proyectos.html">Proyectos</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Redes</h4>
+                    <ul>
+                        <li><a href="https://linkedin.com/in/juan-reifs" rel="external">LinkedIn</a></li>
+                        <li><a href="https://github.com/JuanReifs" rel="external">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Juan Reifs García. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script defer src="script.js"></script>
+    <script defer src="js/formulario.js"></script>
+</body>
+</html>

@@ -1,6 +1,17 @@
+# robots.txt - Guía para motores de búsqueda
+# Actualizado: Marzo 2026
+
 User-agent: *
 Allow: /
-Disallow: 
+Disallow: /private/
+Disallow: /admin/
+Disallow: /.git/
 
+# Crawl-delay
+Crawl-delay: 1
+
+# Sitemaps
 Sitemap: https://juanreifs.github.io/sitemap.xml
+Sitemap: https://juanreifs.github.io/sitemap-blog.xml
+Sitemap: https://juanreifs.github.io/sitemap-proyectos.xml
 
