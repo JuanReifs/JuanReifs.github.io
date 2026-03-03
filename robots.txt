@@ -14,4 +14,6 @@ Crawl-delay: 1
 Sitemap: https://juanreifs.github.io/sitemap.xml
 Sitemap: https://juanreifs.github.io/sitemap-blog.xml
 Sitemap: https://juanreifs.github.io/sitemap-proyectos.xml
+Sitemap: https://juanreifs.github.io/sitemap-404.xml
+
 
