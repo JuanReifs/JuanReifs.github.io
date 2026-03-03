@@ -1,0 +1,20 @@
+Gemini 
+## Un paso más allá del código: Mi visión como desarrollador
+
+¡Hola! Soy **Juan Reifs García**. Actualmente me encuentro cursando el Grado Superior de **Desarrollo de Aplicaciones Multiplataforma (DAM)**, un camino que elegí por mi fascinación por crear soluciones digitales que sean tan funcionales como eficientes.
+
+Mi perfil técnico se construye sobre una base sólida en lenguajes como **Java, JavaScript y SQL**, además de dominar los estándares de marcado **HTML, CSS y XML**. Sin embargo, mi curiosidad no se detiene en el plan de estudios. De forma autodidacta, exploro el desarrollo de videojuegos con **C# y C++** en motores como Unity y Unreal Engine, y disfruto profundizando en el control de sistemas mediante **Shell y CMD** para automatizar procesos que nos hagan la vida más fácil.
+
+### Tecnología con propósito y estrategia
+
+Creo firmemente que el desarrollo actual debe ir de la mano de la innovación. Por ello, me he especializado en el uso de **Inteligencia Artificial** para la creación de bucles de trabajo y automatización de tareas (formándome con referentes como Jon Hernández). Esta visión, sumada a mi interés por el **SEO**, me permite entender el desarrollo de software no solo como escritura de código, sino como la creación de productos que deben ser visibles, eficientes y escalables.
+
+### Empatía y equipo: Mi factor diferencial
+
+Entiendo el desarrollo como un deporte de equipo. He dedicado dos años específicos a certificar habilidades en **creatividad, empatía y comunicación** en el CES Juan Pablo II. Mi experiencia en voluntariados me ha enseñado que la paciencia y el saber escuchar son tan importantes para el éxito de un proyecto como una buena arquitectura de bases de datos. Disfruto colaborando y aportando una actitud positiva y resolutiva en cada grupo del que formo parte.
+
+### ¿Qué busco ahora?
+
+Estoy a punto de dar el salto al mundo profesional con mis primeras 500 horas de prácticas, donde busco aplicar todo este aprendizaje en proyectos reales, especialmente en aquellos que desafíen mi capacidad de resolución de problemas o se adentren en el apasionante mundo de la programación interactiva.
+
+Te invito a explorar el resto de mi portfolio para conocer mis proyectos y ver cómo aplico estas herramientas en el día a día.
