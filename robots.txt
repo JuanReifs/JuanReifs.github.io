@@ -3,9 +3,9 @@
 
 User-agent: *
 Allow: /
-Disallow: /private/
-Disallow: /admin/
-Disallow: /.git/
+allow: /private/
+allow: /admin/
+allow: /.git/
 
 # Crawl-delay
 Crawl-delay: 1
