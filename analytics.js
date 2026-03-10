@@ -85,28 +85,32 @@ class AdvancedAnalytics {
     }
 
     setupScrollTracking() {
-        let scrollDepth = 0;
-        const thresholds = [25, 50, 75, 100];
-        const scrolledThresholds = new Set();
+        let scrollDepth = 0;
+        const thresholds = [25, 50, 75, 100];
+        const scrolledThresholds = new Set();
+        let ticking = false; // <-- Añadimos un "candado"
 
-        window.addEventListener('scroll', () => {
-            const windowHeight = window.innerHeight;
-            const documentHeight = document.documentElement.scrollHeight;
-            const scrollTop = window.scrollY;
-            
-            const currentDepth = Math.round((scrollTop + windowHeight) / documentHeight * 100);
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const windowHeight = window.innerHeight;
+                    const documentHeight = document.documentElement.scrollHeight;
+                    const scrollTop = window.scrollY;
+                    
+                    const currentDepth = Math.round((scrollTop + windowHeight) / documentHeight * 100);
 
-            thresholds.forEach(threshold => {
-                if (currentDepth >= threshold && !scrolledThresholds.has(threshold)) {
-                    scrolledThresholds.add(threshold);
-                    
-                    gtag('event', 'scroll_depth', {
-                        'depth_percentage': threshold
-                    });
-                }
-            });
-        }, { passive: true });
-    }
+                    thresholds.forEach(threshold => {
+                        if (currentDepth >= threshold && !scrolledThresholds.has(threshold)) {
+                            scrolledThresholds.add(threshold);
+                            gtag('event', 'scroll_depth', { 'depth_percentage': threshold });
+                        }
+                    });
+                    ticking = false; // <-- Quitamos el candado
+                });
+                ticking = true; // <-- Ponemos el candado
+            }
+        }, { passive: true });
+    }
 
     setupPerformanceTracking() {
         window.addEventListener('load', () => {
