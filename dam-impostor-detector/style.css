@@ -1,0 +1,112 @@
+:root {
+    --neon-cian: #00f2ff;
+    --neon-oro: #ffd700;
+    --neon-sangre: #ff0033;
+    --neon-veneno: #39ff14;
+    --neon-purpura: #bc13fe;
+}
+
+body {
+    background-color: #050505;
+    color: #e0e0e0;
+    font-family: 'Rajdhani', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-image: radial-gradient(circle at 50% 50%, rgba(20, 20, 20, 1) 0%, rgba(5, 5, 5, 1) 100%), url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
+}
+
+.letra-espacial {
+    font-family: 'Orbitron', sans-serif;
+}
+
+.brillo-cian {
+    text-shadow: 0 0 10px var(--neon-cian), 0 0 20px var(--neon-cian);
+}
+
+.brillo-oro {
+    text-shadow: 0 0 10px var(--neon-oro), 0 0 20px var(--neon-oro);
+}
+
+.brillo-sangre {
+    text-shadow: 0 0 10px var(--neon-sangre), 0 0 20px var(--neon-sangre);
+}
+
+.brillo-purpura {
+    text-shadow: 0 0 10px var(--neon-purpura), 0 0 20px var(--neon-purpura);
+}
+
+.borde-neon {
+    border: 2px solid;
+    transition: all 0.3s ease;
+}
+
+.borde-neon:hover {
+    box-shadow: 0 0 15px currentColor;
+}
+
+@keyframes interferencia {
+    0% { clip-path: inset(40% 0 61% 0); transform: translate(-2px, 2px); }
+    20% { clip-path: inset(92% 0 1% 0); transform: translate(1px, -3px); }
+    40% { clip-path: inset(43% 0 1% 0); transform: translate(-1px, 2px); }
+    60% { clip-path: inset(25% 0 58% 0); transform: translate(3px, 1px); }
+    100% { clip-path: inset(58% 0 43% 0); transform: translate(1px, 2px); }
+}
+
+.capa-glitch {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 0, 51, 0.1);
+    pointer-events: none;
+    z-index: 100;
+    display: none;
+    animation: interferencia 0.2s infinite;
+}
+
+.barra-sospecha {
+    height: 100%;
+    background: linear-gradient(90deg, #660000 0%, #ff0033 100%);
+    box-shadow: 0 0 20px var(--neon-sangre);
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.peligro-total {
+    animation: latido-rojo 0.8s infinite;
+}
+
+@keyframes latido-rojo {
+    0%, 100% { box-shadow: 0 0 10px var(--neon-sangre); }
+    50% { box-shadow: 0 0 30px var(--neon-sangre); }
+}
+
+.panel-cristal {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.entrada-suave {
+    animation: fundido 0.5s ease-out forwards;
+}
+
+@keyframes fundido {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.boton-opcion {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+
+.boton-opcion:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--neon-cian);
+    transform: scale(1.02);
+}

@@ -1,0 +1,225 @@
+:root {
+    --color-bg-ads: #020617;
+    --color-gold: #fbbf24;
+    --color-horror: #991b1b;
+    --color-cyber: #0ea5e9;
+    --color-glitch: #a855f7;
+    --color-surface-ads: rgba(15, 23, 42, 0.8);
+    --font-heading: system-ui, -apple-system, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100% !important;
+    width: 100% !important;
+    overflow: hidden !important;
+    margin: 0;
+    padding: 0;
+}
+
+.boton-volver {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    color: var(--color-text-dim);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--color-border);
+    transition: all 0.2s;
+    z-index: 100;
+}
+
+.boton-volver:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    transform: translateX(-5px);
+}
+
+body {
+    background-color: var(--color-bg-ads);
+    color: white;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    text-align: center;
+    padding: 1rem 0;
+    flex-shrink: 0;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin: 0;
+}
+
+header p {
+    color: #94a3b8;
+    font-size: 1rem;
+    margin: 0.2rem 0 0;
+}
+
+.grid-promociones {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    padding: 1rem 2rem;
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    flex: 1;
+    min-height: 0;
+}
+
+.tarjeta-anuncio {
+    position: relative;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    height: 100%;
+    background: var(--color-surface-ads);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.4s ease, box-shadow 0.4s;
+    cursor: pointer;
+}
+
+.tarjeta-anuncio:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.imagen-anuncio {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+    transition: opacity 0.4s;
+}
+
+.tarjeta-anuncio:hover .imagen-anuncio {
+    opacity: 0.7;
+    transform: scale(1.1);
+}
+
+.contenido-anuncio {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.9) 50%);
+    z-index: 2;
+}
+
+.contenido-anuncio h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.contenido-anuncio p {
+    font-size: 0.85rem;
+    color: #cbd5e1;
+}
+
+.insignia-anuncio {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    padding: 0.4rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 10;
+}
+
+/* Specific Ad Styles */
+.anuncio-horror { background: radial-gradient(circle at center, #2b0000, #000); }
+.anuncio-cyber { background: radial-gradient(circle at center, #001f3f, #020617); }
+.anuncio-lujo { background: radial-gradient(circle at center, #1e1b1e, #000); }
+.anuncio-glitch { background: #000; }
+
+.anuncio-horror:hover { border-color: var(--color-horror); box-shadow: 0 0 30px rgba(153, 27, 27, 0.3); }
+.anuncio-cyber:hover { border-color: var(--color-cyber); box-shadow: 0 0 30px rgba(14, 165, 233, 0.3); }
+.anuncio-lujo:hover { border-color: var(--color-gold); box-shadow: 0 0 30px rgba(251, 191, 36, 0.2); }
+.anuncio-glitch:hover { border-color: var(--color-glitch); box-shadow: 0 0 30px rgba(168, 85, 247, 0.3); }
+
+.anuncio-horror .pulso { animation: pulso-sangre 2s infinite; }
+@keyframes pulso-sangre {
+    0% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.2); opacity: 0.2; }
+    100% { transform: scale(1); opacity: 0.6; }
+}
+
+.borde-neon {
+    position: absolute;
+    inset: 0;
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
+}
+.anuncio-cyber:hover .borde-neon { border-color: var(--color-cyber); box-shadow: inset 0 0 20px var(--color-cyber); }
+
+.texto-glitch { position: relative; }
+.anuncio-glitch:hover .texto-glitch::before {
+    content: 'ERROR 404';
+    position: absolute;
+    left: 2px;
+    text-shadow: -2px 0 #ff00c1;
+    animation: efecto-glitch 0.3s infinite linear alternate-reverse;
+}
+@keyframes efecto-glitch {
+    0% { clip-path: inset(10% 0 50% 0); }
+    100% { clip-path: inset(40% 0 10% 0); }
+}
+
+.boton-accion {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    border-radius: 0.6rem;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+    background: white;
+    color: black;
+}
+
+.boton-accion:hover {
+    transform: scale(1.05);
+    background: #f1f5f9;
+}
+
+footer {
+    text-align: center;
+    padding: 0.75rem 0;
+    opacity: 0.5;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+}
+
+/* Forced Responsive No-Scroll */
+@media (max-width: 1200px) {
+    .grid-promociones { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .contenido-anuncio h2 { font-size: 1.2rem; }
+}
+
+@media (max-width: 600px) {
+    header h1 { font-size: 1.8rem; }
+    .grid-promociones { gap: 0.75rem; padding: 0.5rem; }
+    .contenido-anuncio { padding: 1rem; }
+    .contenido-anuncio p { display: none; }
+}

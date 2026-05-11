@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>DAM IMPOSTOR DETECTOR - REPARTO FINAL</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div id="capa-interferencia" class="capa-glitch"></div>
+    <div id="contenedor-principal" class="w-full max-w-4xl relative z-10">
+        <!-- SELECCIÓN -->
+        <div id="pantalla-seleccion" class="entrada-suave space-y-12">
+            <div class="text-center space-y-4">
+                <h1 class="letra-espacial text-6xl font-bold tracking-tighter brillo-cian italic">DAM IMPOSTOR DETECTOR</h1>
+                <p class="text-xl uppercase tracking-[0.3em] text-cyan-500 opacity-80">PROTOCOLO SKYNET: PURGA DE IMPOSTORES SINTÉTICOS</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- CASINO ROYALE -->
+                <div onclick="empezarMambo('CASINO ROYALE', 'oro')" class="panel-cristal rounded-2xl cursor-pointer borde-neon hover:text-[#ffd700] hover:border-[#ffd700] group overflow-hidden">
+                    <img src="img/casinoroyale.jpeg" alt="Casino" class="w-full h-48 object-cover opacity-50 group-hover:opacity-100 transition-opacity">
+                    <div class="p-6">
+                        <h2 class="letra-espacial text-3xl font-bold mb-2 group-hover:brillo-oro">CASINO ROYALE</h2>
+                        <p class="opacity-60 text-lg">Vitalii, Ruben, Stefan, Ricardo</p>
+                    </div>
+                </div>
+                <!-- CYBER-OLYMPICS -->
+                <div onclick="empezarMambo('CYBER-OLYMPICS', 'cian')" class="panel-cristal rounded-2xl cursor-pointer borde-neon hover:text-[#00f2ff] hover:border-[#00f2ff] group overflow-hidden">
+                    <img src="img/cyberolimpics.jpeg" alt="Olympics" class="w-full h-48 object-cover opacity-50 group-hover:opacity-100 transition-opacity">
+                    <div class="p-6">
+                        <h2 class="letra-espacial text-3xl font-bold mb-2 group-hover:brillo-cian">CYBER-OLYMPICS</h2>
+                        <p class="opacity-60 text-lg">Ivan Martinez, Pablo Rodriguez, Izan Garcia</p>
+                    </div>
+                </div>
+                <!-- ESCAPE LUISMI -->
+                <div onclick="empezarMambo('ESCAPE LUISMI', 'sangre')" class="panel-cristal rounded-2xl cursor-pointer borde-neon hover:text-[#ff0033] hover:border-[#ff0033] group overflow-hidden">
+                    <img src="img/escapedeluismi.jpeg" alt="Escape" class="w-full h-48 object-cover opacity-50 group-hover:opacity-100 transition-opacity">
+                    <div class="p-6">
+                        <h2 class="letra-espacial text-3xl font-bold mb-2 group-hover:brillo-sangre">ESCAPE LUISMI</h2>
+                        <p class="opacity-60 text-lg">Bilal, Adrian, Youssef, Victor</p>
+                    </div>
+                </div>
+                <!-- ERROR 404: HUMANITY -->
+                <div onclick="empezarMambo('ERROR 404: HUMANITY', 'purpura')" class="panel-cristal rounded-2xl cursor-pointer borde-neon hover:text-[#bc13fe] hover:border-[#bc13fe] group overflow-hidden">
+                    <img src="img/error404.jpeg" alt="Humanity" class="w-full h-48 object-cover opacity-50 group-hover:opacity-100 transition-opacity">
+                    <div class="p-6">
+                        <h2 class="letra-espacial text-3xl font-bold mb-2 group-hover:brillo-purpura">ERROR 404: HUMANITY</h2>
+                        <p class="opacity-60 text-lg">Francisco, Cristian, Pablo</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- QUIZ -->
+        <div id="pantalla-quiz" class="hidden entrada-suave space-y-8">
+            <div class="flex justify-between items-center">
+                <button onclick="volverAlInicio()" class="text-xs letra-espacial border border-red-500/50 px-3 py-1 rounded hover:bg-red-500 hover:text-white transition-all">✕ ABORTAR MISIÓN</button>
+                <div id="etiqueta-grupo" class="px-4 py-1 rounded-full border border-current text-sm letra-espacial uppercase tracking-widest"></div>
+                <div class="text-right">
+                    <p id="texto-progreso" class="text-2xl font-bold letra-espacial">1 / 10</p>
+                </div>
+            </div>
+            <div class="space-y-3">
+                <div class="flex justify-between letra-espacial text-sm">
+                    <span class="text-red-500 brillo-sangre">SANGRE EN EL NÚCLEO (IA)</span>
+                    <span id="valor-sospecha" class="text-red-500">0%</span>
+                </div>
+                <div class="h-6 w-full bg-black/50 border border-red-900/50 rounded-full p-1 overflow-hidden">
+                    <div id="barra-sospecha" class="barra-sospecha rounded-full" style="width: 0%"></div>
+                </div>
+            </div>
+            <div class="panel-cristal rounded-3xl p-10 relative overflow-hidden">
+                <div id="visor-tiempo" class="absolute top-0 right-0 p-6 letra-espacial text-4xl font-bold text-cyan-400">15s</div>
+                <h3 id="texto-pregunta" class="text-3xl font-semibold mb-12 max-w-2xl leading-tight"></h3>
+                <div id="rejilla-opciones" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+            </div>
+        </div>
+        <!-- RESULTADOS -->
+        <div id="pantalla-resultados" class="hidden text-center entrada-suave space-y-8 py-12">
+            <div id="contenedor-matrix" class="hidden mb-8">
+                <img src="img/sospecha_matrix.png" alt="Matrix" class="mx-auto rounded-3xl border-4 border-green-600 shadow-[0_0_30px_#39ff14] max-w-sm">
+            </div>
+            <div id="contenedor-robot" class="hidden mb-8">
+                <img src="img/sospecha_robot.png" alt="Yo Robot" class="mx-auto rounded-3xl border-4 border-cyan-600 shadow-[0_0_30px_#00f2ff] max-w-sm">
+            </div>
+            <div id="contenedor-derrota" class="hidden mb-8">
+                <img src="img/derrota_skynet.png" alt="Skynet" class="mx-auto rounded-3xl border-4 border-red-600 shadow-[0_0_30px_#ff0033] max-w-sm animate-pulse">
+            </div>
+            <div id="icono-final" class="text-9xl mb-4"></div>
+            <h1 id="titulo-final" class="letra-espacial text-5xl font-bold"></h1>
+            <div id="resumen-macarra" class="space-y-6">
+                <p id="mensaje-ia" class="text-3xl font-bold text-red-500"></p>
+                <p id="mensaje-merito" class="text-2xl opacity-70 italic"></p>
+            </div>
+            <div class="panel-cristal p-8 rounded-2xl inline-block mt-8">
+                <p id="sospecha-final" class="text-7xl font-bold text-red-500"></p>
+            </div>
+            <br>
+            <button onclick="volverAlInicio()" class="letra-espacial border-2 border-cyan-500 px-12 py-4 rounded-full text-cyan-400 hover:bg-cyan-500 hover:text-black transition-all text-xl uppercase tracking-widest mt-8">REINICIAR MISION</button>
+    </div>
+    <script src="script.js" defer></script>
+</body>
+</html>

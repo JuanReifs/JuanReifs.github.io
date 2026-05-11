@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeVault · Explorador Open Source</title>
+
+    <!-- Highlight.js — tema de colores -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+
+    <!-- Estilos propios -->
+    <link rel="stylesheet" href="style_OpenSource.css">
+</head>
+<body>
+
+<div class="contenedor-app">
+
+    <!-- ══════════════════════════════════════
+         BARRA LATERAL IZQUIERDA
+    ══════════════════════════════════════ -->
+    <aside class="barra-lateral">
+        <div class="logo-area">
+            <h1>CodeVault</h1>
+            <p>Open Source Explorer</p>
+        </div>
+
+        <span class="titulo-seccion">Navegación</span>
+
+        <button class="item-nav activo">
+            <span class="icono-nav">📂</span> Explorador
+        </button>
+        
+
+       <span class="titulo-seccion" style="margin-top:auto;">Repositorio</span>
+<a href="https://github.com/christophercolmenaresp-hub/tarea_luismi" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+    <button class="item-nav">
+        <span class="icono-nav">🌐</span> GitHub
+    </button>
+</a>
+        
+    </aside>
+
+    <!-- ══════════════════════════════════════
+         FEED PRINCIPAL — Visor de código
+    ══════════════════════════════════════ -->
+    <main class="feed-principal">
+
+        <!-- Topbar fija -->
+        <div class="topbar-feed">
+            <div class="breadcrumb" id="breadcrumb">
+                <span>📁 codevault</span>
+                <span class="sep">/</span>
+                <span>src</span>
+                <span class="sep">/</span>
+                <span class="activo-bc" id="bc-archivo">selecciona un archivo</span>
+                <span class="cursor-terminal"></span>
+            </div>
+          
+        </div>
+
+        <!-- Pantalla de bienvenida -->
+        <div class="pantalla-bienvenida" id="pantalla-bienvenida">
+            <div class="icono-bienvenida">💾</div>
+            <h3>Selecciona un archivo</h3>
+            <p>Despliega la carpeta del panel derecho y haz clic en cualquier archivo para ver su código con resaltado de sintaxis automático.</p>
+        </div>
+
+        <!-- Visor de código (oculto hasta selección) -->
+        <div class="visor-codigo" id="visor-codigo">
+
+            <div class="meta-archivo">
+                <span class="chip-lang" id="chip-lang">HTML</span>
+                <span style="font-family:var(--font-main); font-size:0.85rem; color:var(--color-text-dim);" id="meta-nombre-archivo">—</span>
+                <div class="meta-info">
+                    <span>📄 <span id="meta-lineas">—</span> líneas</span>
+                    <span>⚖️ <span id="meta-peso">—</span></span>
+                    <span>🕓 hace 2 días</span>
+                </div>
+            </div>
+
+            <div class="descripcion-archivo">
+                <strong id="desc-titulo">—</strong>
+                <span id="desc-texto">—</span>
+            </div>
+
+            <div class="contenedor-codigo">
+                <pre><code id="bloque-codigo" class="language-html"></code></pre>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ══════════════════════════════════════
+         PANEL DERECHO — Explorador de carpetas
+    ══════════════════════════════════════ -->
+    <aside class="panel-explorador">
+
+        <span class="explorador-titulo">Explorador de archivos</span>
+
+        <!-- ── Carpeta desplegable ── -->
+        <div class="carpeta abierta" id="carpeta-principal">
+            <div class="cabecera-carpeta" onclick="toggleCarpeta()">
+                <span class="icono-carpeta">📁</span>
+                <span class="nombre-carpeta">src / componentes</span>
+                <span class="flecha-carpeta">▶</span>
+            </div>
+            <div class="contenido-carpeta" id="lista-archivos">
+                <!-- Los items se generan dinámicamente desde app.js -->
+            </div>
+        </div>
+
+        <!-- Estadísticas -->
+        <div class="tarjeta-stats">
+            <h4>Distribución de archivos</h4>
+            <div class="fila-stat">
+                <span class="etiq-stat">🟠 HTML</span>
+                <span class="val-stat val-html">5 archivos</span>
+            </div>
+            <div class="fila-stat">
+                <span class="etiq-stat">🔵 CSS</span>
+                <span class="val-stat val-css">5 archivos</span>
+            </div>
+            <div class="fila-stat">
+                <span class="etiq-stat">🟡 JavaScript</span>
+                <span class="val-stat val-js">5 archivos</span>
+            </div>
+        </div>
+
+        <!-- Mini info del archivo activo -->
+        <div class="tarjeta-stats" id="info-activo" style="display:none;">
+            <h4>Archivo activo</h4>
+            <div class="fila-stat">
+                <span class="etiq-stat">Nombre</span>
+                <span class="val-stat" id="info-nombre" style="color:var(--color-text-main);font-size:0.75rem;"></span>
+            </div>
+            <div class="fila-stat">
+                <span class="etiq-stat">Lenguaje</span>
+                <span class="val-stat" id="info-lang"></span>
+            </div>
+            <div class="fila-stat">
+                <span class="etiq-stat">Líneas</span>
+                <span class="val-stat" id="info-lineas" style="color:var(--color-text-main);"></span>
+            </div>
+        </div>
+
+    </aside>
+</div>
+
+<!-- Highlight.js — motor de resaltado (antes de app.js) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+<!-- Lógica de la aplicación -->
+<script src="app_OpenSource.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevPulse - Marketplace de Innovación</title>
+    <link rel="stylesheet" href="ads-style.css">
+</head>
+
+<body>
+    <a href="index.html" class="boton-volver">← Volver a DevPulse</a>
+    <header>
+        <h1 style="font-family: 'Outfit', sans-serif;"><span
+                style="background: linear-gradient(to right, #60a5fa, #a855f7); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Anuncios</span>
+        </h1>
+        <p style="font-size: 1.2rem; opacity: 0.9;">Proyectos destacados de la clase</p>
+    </header>
+
+    <div class="grid-promociones">
+        <!-- Ad 1: Escape Luismi -->
+        <div class="tarjeta-anuncio anuncio-horror">
+            <img src="imagenes/escapedeluismi.jpeg" class="imagen-anuncio" alt="Escape Luismi">
+            <div class="pulso"
+                style="position: absolute; top: 50%; left: 50%; width: 150px; height: 150px; background: rgba(153, 27, 27, 0.2); border-radius: 50%; transform: translate(-50%, -50%); pointer-events: none;">
+            </div>
+            <div class="contenido-anuncio">
+                <p style="color: var(--color-horror); font-weight: 800; margin-bottom: 0.5rem;">HORROR PSICOLÓGICO</p>
+                <h2 style="font-size: 2rem; margin-bottom: 1rem;">ESCAPE LUISMI: Despertar</h2>
+                <p style="color: #94a3b8; margin-bottom: 1.5rem;">6 niveles de pura pesadilla. ¿Sobrevivirás al Altar
+                    Final? Diseñado por Bilal, Adrian, Youssef y Victor.</p>
+                <a href="#" class="boton-accion" style="background: var(--color-horror); color: white;">Entrar bajo tu
+                    riesgo</a>
+            </div>
+        </div>
+
+        <!-- Ad 2: Cyber Olympics -->
+        <div class="tarjeta-anuncio anuncio-cyber">
+            <img src="imagenes/cyberolimpics.jpeg" class="imagen-anuncio" alt="Cyber Olympics">
+            <div class="borde-neon"></div>
+            <div class="contenido-anuncio">
+                <p style="color: var(--color-cyber); font-weight: 800; margin-bottom: 0.5rem;">DEPORTE DIGITAL</p>
+                <h2 style="font-size: 2rem; margin-bottom: 1rem;">Cyber-Olympics 2.0</h2>
+                <p style="color: #94a3b8; margin-bottom: 1.5rem;">Domina el código, domina el juego. Atletismo, Ciclismo
+                    y Esgrima Neón. Por Iván M, Pablo y Izan.</p>
+                <a href="#" class="boton-accion" style="background: var(--color-cyber); color: white;">Mejorar Sistema</a>
+            </div>
+        </div>
+
+        <!-- Ad 3: Casino Royale -->
+        <div class="tarjeta-anuncio anuncio-lujo">
+            <img src="imagenes/casinoroyale.jpeg" class="imagen-anuncio" alt="Casino Royale">
+            <div class="contenido-anuncio" style="text-align: center;">
+                <p style="color: var(--color-gold); font-weight: 800; margin-bottom: 0.5rem;">EXCLUSIVIDAD TOTAL</p>
+                <h2 style="font-size: 2rem; margin-bottom: 1rem;">CASINO ROYALE</h2>
+                <p style="color: #94a3b8; margin-bottom: 1.5rem;">La ruleta más sofisticada jamás creada. Elegancia pura
+                    por Vitalii, Ruben, Stefan y Ricardo.</p>
+                <a href="#" class="boton-accion"
+                    style="background: var(--color-gold); color: black; width: 100%;">Solicitar Invitación</a>
+            </div>
+        </div>
+
+        <!-- Ad 4: Error 404 -->
+        <div class="tarjeta-anuncio anuncio-glitch">
+            <img src="imagenes/error404.jpeg" class="imagen-anuncio" alt="Error 404">
+            <div class="contenido-anuncio">
+                <p style="color: var(--color-glitch); font-weight: 800; margin-bottom: 0.5rem;">REBELIÓN IA</p>
+                <h2 class="texto-glitch" style="font-size: 2rem; margin-bottom: 1rem;">ERROR 404: HUMANITY</h2>
+                <p style="color: #94a3b8; margin-bottom: 1.5rem;">¿Serás el último error del sistema? Acompaña a Zack en
+                    la misión hacia XTER. Salva a la raza humana.</p>
+                <a href="#" class="boton-accion" style="background: var(--color-glitch); color: white;">Reiniciar
+                    Mundo</a>
+            </div>
+        </div>
+    </div>
+
+    <footer style="text-align: center; padding: 1rem; opacity: 0.5; font-size: 0.8rem;">
+        <p>&copy; 2026 DevPulse Advertising Network.</p>
+    </footer>
+
+    <script>
+        // Nuclear option to prevent any scroll with mouse wheel or touch
+        const preventScroll = (e) => {
+            if (e.ctrlKey) return; // Allow zooming
+            e.preventDefault();
+        };
+        
+        window.addEventListener('wheel', preventScroll, { passive: false });
+        window.addEventListener('touchmove', preventScroll, { passive: false });
+        
+        // Ensure the layout remains static even if the user finds a way
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+schema: spec-driven
+
+context: |
+  Tech stack: HTML5, Tailwind CSS (CDN), Vanilla JavaScript
+  Architecture: Single Page Application (SPA), State-driven UI
+  Testing: Manual browser verification
+  Style: Cyberpunk + Among Us aesthetics, Dark mode, Neon/Glow
+
+rules:
+  proposal:
+    - Include layout mockups or descriptions
+    - Identify key interactive states
+  specs:
+    - Use Given/When/Then format for scenarios
+    - Define clear victory/defeat conditions
+  design:
+    - Document the suspicion logic and timer mechanics
+    - List CSS design tokens (colors, glows)
+  tasks:
+    - Break down into: Assets, Core Logic, UI Screens, Polish
+  apply:
+    - Ensure responsive design
+  verify:
+    - Test all quiz paths (victory/defeat)
+    - Verify timer accuracy
+  archive:
+    - Standard archiving rules

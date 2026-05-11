@@ -1,0 +1,304 @@
+/* 
+   SISTEMA DE ESTILOS VANILLA - style.css
+   Este archivo reemplaza a Tailwind CSS y gestiona todo el diseño visual.
+*/
+
+/* Variables globales de color y diseño */
+/* Variables globales de color y diseño - Sincronizadas con DevPulse */
+:root {
+    --color-bg: #030712;
+    --color-surface: #111827;
+    --color-surface-soft: #1f2937;
+    --color-primary: #3b82f6;
+    --color-primary-glow: rgba(59, 130, 246, 0.5);
+    --color-secondary: #ff4500;
+    --color-accent: #f48024;
+    --color-text-main: #f9fafb;
+    --color-text-dim: #9ca3af;
+    --color-glass: rgba(255, 255, 255, 0.03);
+    --color-border: rgba(255, 255, 255, 0.1);
+    
+    --color-azul: var(--color-primary);
+    --color-azul-brillante: #60a5fa;
+    --color-morado: #a78bfa;
+    --color-esmeralda: #10b981;
+    --color-rojo: #ef4444;
+    
+    --font-main: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text-main);
+    font-family: var(--font-main);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* --- UTILIDADES DE DISEÑO --- */
+
+.flex { display: flex; }
+.col { flex-direction: column; }
+.centro { justify-content: center; align-items: center; }
+.entre { justify-content: space-between; }
+.gap-2 { gap: 0.5rem; }
+.gap-4 { gap: 1rem; }
+.gap-6 { gap: 1.5rem; }
+
+.entre {
+    justify-content: space-between;
+}
+
+.gap-2 {
+    gap: 0.5rem;
+}
+
+.gap-4 {
+    gap: 1rem;
+}
+
+.gap-6 {
+    gap: 1.5rem;
+}
+
+.grid-menu {
+    /*Posicion de las ventanas*/
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 1100px;
+}
+
+/* --- COMPONENTES VISUALES --- */
+
+/* --- COMPONENTES VISUALES --- */
+
+.fondo-gradiente {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: radial-gradient(circle at top, #111827, #030712);
+}
+
+.contenedor-principal {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.texto-degradado {
+    background: linear-gradient(135deg, #fff, var(--color-primary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 800;
+}
+
+.panel-cristal {
+    background: var(--color-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--color-border);
+    border-radius: 1.5rem;
+    padding: 2rem;
+}
+
+.tarjeta-cristal {
+    background: var(--color-glass);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--color-border);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tarjeta-cristal:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-primary);
+    background: rgba(59, 130, 246, 0.05);
+}
+
+/* --- ESTILOS DEL QUIZ --- */
+
+.contenedor-quiz {
+    animation: entradaSuave 0.5s ease-out;
+}
+
+@keyframes entradaSuave {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.barra-superior {
+    margin-bottom: 2.5rem;
+}
+
+.puntuacion-caja {
+    padding: 0.75rem 1.5rem;
+    border-radius: 1rem;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+}
+
+.editor-ventana {
+    border-radius: 1.5rem;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+}
+
+.editor-barra {
+    background: var(--color-surface-soft);
+    padding: 1rem 2rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.editor-codigo {
+    padding: 2rem;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    overflow-x: auto;
+}
+
+.linea-codigo {
+    cursor: pointer;
+    display: flex;
+    gap: 1.5rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.linea-codigo:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.numero-linea {
+    color: var(--color-slate-500);
+    width: 2rem;
+    text-align: right;
+    user-select: none;
+    font-weight: bold;
+    opacity: 0.5;
+}
+
+.linea-codigo.erroneo {
+    background: rgba(239, 68, 68, 0.2) !important;
+    border-left: 3px solid var(--color-rojo);
+}
+
+.linea-codigo.correcto {
+    background: rgba(16, 185, 129, 0.2) !important;
+    border-left: 3px solid var(--color-esmeralda);
+}
+
+.boton-volver {
+    background: none;
+    border: none;
+    color: var(--color-slate-500);
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    transition: color 0.3s;
+}
+
+.boton-volver:hover {
+    color: white;
+}
+
+/* --- MODALES PROPIOS (Sustituyen SweetAlert2) --- */
+
+.capa-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.caja-modal {
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2.5rem;
+    border-radius: 2rem;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    animation: zoomIn 0.3s ease-out;
+}
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.boton-principal {
+    background: var(--color-azul);
+    color: white;
+    border: none;
+    padding: 1rem 2.5rem;
+    border-radius: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 1.5rem;
+    transition: background 0.3s;
+}
+
+.boton-principal:hover {
+    background: #2563eb;
+}
+
+.boton-secundario {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--color-slate-500);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+}
