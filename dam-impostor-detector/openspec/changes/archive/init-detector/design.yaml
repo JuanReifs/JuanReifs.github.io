@@ -1,6 +1,0 @@
-change_name: init-detector
-status: designed
-summary: |
-  SPA architecture with state-based rendering.
-  Neon design tokens and component breakdown.
-next_recommended: sdd-tasks

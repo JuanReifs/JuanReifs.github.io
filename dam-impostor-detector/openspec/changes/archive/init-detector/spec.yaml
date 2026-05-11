@@ -1,6 +1,0 @@
-change_name: init-detector
-status: specified
-summary: |
-  Detailed game mechanics, scenarios, and question bank.
-  Suspicion: +10% error, +20% timeout. 10 random questions from 18.
-next_recommended: sdd-design
