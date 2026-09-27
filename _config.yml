@@ -1,0 +1,14 @@
+# _config.yml
+plugins:
+  - jekyll-redirect-from
+
+# Configuración básica
+title: Juan Reifs García
+description: Portfolio de desarrollador multiplataforma
+url: https://juanreifs.github.io
+
+# Markdownify
+markdown: kramdown
+
+# Para 404
+error_page: /404.html
