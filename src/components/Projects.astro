@@ -1,0 +1,88 @@
+---
+import Section from './Section.astro';
+import Button from './Button.astro';
+import Icon from './Icon.astro';
+import { t } from '../i18n';
+import { projects } from '../data/projects';
+---
+
+<Section id="projects" eyebrow="projects.eyebrow" title="projects.title">
+  <div class="projects__grid">
+    {projects.map((project) => {
+      const statusKey = project.status === 'wip' ? 'projects.status.wip' : 'projects.status.published';
+      return (
+        <article class="card card--interactive projects__card reveal">
+          <span class:list={['chip', 'projects__status', { 'chip--accent': project.status === 'wip' }]}>
+            <Icon name={project.status === 'wip' ? 'clock' : 'check'} size={16} />
+            <span data-i18n={statusKey}>{t(statusKey)}</span>
+          </span>
+          <h3 class="projects__title" data-i18n={project.title}>{t(project.title)}</h3>
+          <p class="projects__description" data-i18n={project.description}>{t(project.description)}</p>
+          <ul class="projects__tech">
+            {project.tech.map((technology) => <li class="chip">{technology}</li>)}
+          </ul>
+          <footer class="projects__footer">
+            {project.repoUrl ? (
+              <Button label="projects.repo" href={project.repoUrl} icon="github" size="sm" variant="ghost" external />
+            ) : (
+              <p class="projects__soon" data-i18n="projects.repoSoon">{t('projects.repoSoon')}</p>
+            )}
+          </footer>
+        </article>
+      );
+    })}
+  </div>
+</Section>
+
+<style>
+  .projects__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: var(--space-5);
+  }
+
+  .projects__card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .projects__status {
+    align-self: flex-start;
+    max-width: 100%;
+  }
+
+  .projects__title {
+    font-size: var(--text-xl);
+  }
+
+  .projects__description,
+  .projects__soon {
+    color: var(--text-muted);
+  }
+
+  .projects__tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .projects__tech .chip {
+    max-width: 100%;
+  }
+
+  .projects__footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: auto;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--border);
+  }
+
+  .projects__soon {
+    font-size: var(--text-sm);
+  }
+</style>

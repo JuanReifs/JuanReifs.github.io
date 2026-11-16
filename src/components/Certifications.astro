@@ -1,0 +1,73 @@
+---
+import Section from './Section.astro';
+import Button from './Button.astro';
+import Icon from './Icon.astro';
+import { t } from '../i18n';
+import { certifications } from '../data/certifications';
+---
+
+<Section id="certifications" eyebrow="certs.eyebrow" title="certs.title">
+  <div class="certifications__grid">
+    {certifications.map((cert) => (
+      <article class="card card--interactive certifications__card reveal">
+        <div class="certifications__icon"><Icon name="award" size={32} /></div>
+        <h3 class="certifications__title" data-i18n={cert.title}>{t(cert.title)}</h3>
+        <p class="certifications__issuer" data-i18n={cert.issuer}>{t(cert.issuer)}</p>
+        <p class="certifications__description" data-i18n={cert.description}>{t(cert.description)}</p>
+        <div class="certifications__actions">
+          <Button
+            label="certs.verify"
+            href={cert.verifyUrl || undefined}
+            disabled={!cert.verifyUrl}
+            size="sm"
+            variant="outline"
+            icon="external"
+            external
+          />
+        </div>
+      </article>
+    ))}
+  </div>
+</Section>
+
+<style>
+  .certifications__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: var(--space-5);
+  }
+
+  .certifications__card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+    width: 100%;
+    max-width: 520px;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .certifications__icon,
+  .certifications__issuer {
+    color: var(--accent-text);
+  }
+
+  .certifications__title {
+    font-size: var(--text-xl);
+  }
+
+  .certifications__issuer {
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .certifications__description {
+    color: var(--text-muted);
+  }
+
+  .certifications__actions {
+    margin-top: auto;
+    padding-top: var(--space-4);
+  }
+</style>

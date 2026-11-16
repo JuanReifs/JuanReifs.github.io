@@ -1,0 +1,237 @@
+---
+/**
+ * Navbar inferior flotante (dock) + controles globales de tema e idioma.
+ * La lógica vive en scripts/dock.ts (sección activa) y scripts/preferences.ts.
+ */
+import Icon from './Icon.astro';
+import { attr, t } from '../i18n';
+import { navItems } from '../data/site';
+---
+
+<div class="dock-wrap">
+  <div class="controls">
+    <button
+      class="control control--lang"
+      type="button"
+      data-lang-toggle
+      aria-label={t('controls.lang')}
+      data-i18n-attr={attr({ 'aria-label': 'controls.lang' })}
+    >
+      <span data-lang-option="es" data-active>ES</span>
+      <span class="control__sep" aria-hidden="true">/</span>
+      <span data-lang-option="en">EN</span>
+    </button>
+    <button
+      class="control control--theme"
+      type="button"
+      data-theme-toggle
+      aria-pressed="false"
+      aria-label={t('controls.theme')}
+      data-i18n-attr={attr({ 'aria-label': 'controls.theme' })}
+    >
+      <Icon name="sun" class="icon-sun" size={18} />
+      <Icon name="moon" class="icon-moon" size={18} />
+    </button>
+  </div>
+
+  <nav class="dock" aria-label={t('nav.label')} data-i18n-attr={attr({ 'aria-label': 'nav.label' })}>
+    <ul class="dock__list">
+      {
+        navItems.map((item, index) => (
+          <li class="dock__item">
+            <a
+              class="dock__link"
+              href={`#${item.id}`}
+              data-dock-link={item.id}
+              aria-current={index === 0 ? 'true' : undefined}
+            >
+              <Icon name={item.icon} size={22} />
+              <span class="dock__label" data-i18n={item.label}>
+                {t(item.label)}
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</div>
+
+<style>
+  .dock-wrap {
+    position: fixed;
+    z-index: 50;
+    left: 50%;
+    bottom: calc(var(--dock-gap) + env(safe-area-inset-bottom, 0px));
+    translate: -50% 0;
+    width: min(100% - 1.5rem, 1020px);
+  }
+
+  .dock {
+    height: var(--dock-h);
+    border-radius: var(--radius-md);
+    background: linear-gradient(
+      100deg,
+      var(--dock-start),
+      var(--dock-middle) 55%,
+      var(--dock-end)
+    );
+    border: 1px solid var(--dock-border);
+    box-shadow: var(--dock-shadow);
+  }
+
+  .dock__list {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    height: 100%;
+  }
+
+  .dock__link {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    height: 100%;
+    color: var(--accent-contrast);
+    opacity: 0.72;
+    font-size: var(--text-xs);
+    font-weight: 500;
+    transition:
+      opacity var(--dur) ease,
+      transform var(--dur) var(--ease);
+  }
+
+  /* Indicador de sección activa: barra blanca en el borde superior */
+  .dock__link::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    width: 28px;
+    height: 4px;
+    border-radius: 0 0 4px 4px;
+    background: var(--accent-contrast);
+    translate: -50% 0;
+    scale: 0 1;
+    transition: scale var(--dur) var(--ease);
+  }
+
+  .dock__link:hover,
+  .dock__link:focus-visible {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+
+  .dock__link:focus-visible {
+    outline-color: var(--accent-contrast);
+    outline-offset: -6px;
+  }
+
+  .dock__link[aria-current='true'] {
+    opacity: 1;
+    font-weight: 700;
+  }
+
+  .dock__link[aria-current='true']::before {
+    scale: 1 1;
+  }
+
+  /* ───────── Controles (tema + idioma), montados sobre la esquina del dock ───────── */
+  .controls {
+    position: absolute;
+    right: 14px;
+    bottom: calc(100% - 16px);
+    z-index: 1;
+    display: flex;
+    gap: var(--space-2);
+  }
+
+  .control {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3em;
+    height: 40px;
+    min-width: 40px;
+    padding: 0 0.75em;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border-strong);
+    background: var(--surface-solid);
+    color: var(--text);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    box-shadow: var(--shadow);
+    transition:
+      transform var(--dur) var(--ease),
+      border-color var(--dur) ease,
+      color var(--dur) ease;
+  }
+
+  .control:hover,
+  .control:focus-visible {
+    transform: translateY(-3px) scale(1.06);
+    border-color: var(--accent);
+    color: var(--accent-text);
+  }
+
+  .control--theme {
+    padding: 0;
+  }
+
+  .control--theme:hover :global(.icon) {
+    rotate: 40deg;
+  }
+
+  .control :global(.icon) {
+    transition: rotate var(--dur) var(--ease);
+  }
+
+  .control--lang [data-lang-option] {
+    color: var(--text-muted);
+    transition: opacity var(--dur) ease;
+  }
+
+  .control--lang [data-lang-option][data-active] {
+    opacity: 1;
+    color: var(--accent-text);
+  }
+
+  .control__sep {
+    opacity: 0.35;
+  }
+
+  /* En oscuro se ofrece el sol (pasar a claro); en claro, la luna. */
+  :global([data-theme='dark']) .control :global(.icon-moon),
+  :global([data-theme='light']) .control :global(.icon-sun) {
+    display: none;
+  }
+
+  @media (max-width: 639px) {
+    .controls {
+      bottom: calc(100% + var(--space-2));
+    }
+
+    .control {
+      min-width: 44px;
+      height: 44px;
+    }
+
+    .dock__link {
+      min-width: 44px;
+      min-height: 44px;
+    }
+
+    /* Solo iconos: la etiqueta sigue disponible para lectores de pantalla */
+    .dock__label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+  }
+</style>

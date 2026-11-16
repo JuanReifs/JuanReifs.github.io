@@ -1,0 +1,82 @@
+---
+import Section from './Section.astro';
+import Icon from './Icon.astro';
+import { t } from '../i18n';
+import { skillGroups } from '../data/skills';
+---
+
+<Section id="skills" eyebrow="skills.eyebrow" title="skills.title">
+  <div class="skills__groups">
+    {skillGroups.map((group) => (
+      <div class="skills__group">
+        <h3 class:list={['skills__heading', 'reveal', { 'skills__heading--learning': group.id === 'learning' }]}>
+          {group.id === 'learning' && <Icon name="clock" />}
+          <span data-i18n={group.title}>{t(group.title)}</span>
+        </h3>
+        <div class="skills__grid">
+          {group.categories.map((category) => (
+            <article class="card skills__card reveal">
+              <h4 class="skills__title" data-i18n={category.title}>{t(category.title)}</h4>
+              <ul class="skills__list">
+                {category.skills.map((skill) => (
+                  <li class:list={['chip', { 'chip--accent': group.id === 'learning' }]}>
+                    {skill.nameKey ? (
+                      <span data-i18n={skill.nameKey}>{t(skill.nameKey)}</span>
+                    ) : <span>{skill.name}</span>}
+                    {skill.note && <span class="chip__note" data-i18n={skill.note}>{t(skill.note)}</span>}
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</Section>
+
+<style>
+  .skills__groups {
+    display: grid;
+    gap: var(--space-7);
+  }
+
+  .skills__heading {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-5);
+    font-size: var(--text-xl);
+  }
+
+  .skills__heading--learning {
+    color: var(--accent-text);
+  }
+
+  .skills__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: var(--space-5);
+  }
+
+  .skills__card {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .skills__title {
+    margin-bottom: var(--space-5);
+    font-size: var(--text-lg);
+  }
+
+  .skills__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .skills__list .chip {
+    max-width: 100%;
+    flex-wrap: wrap;
+  }
+</style>

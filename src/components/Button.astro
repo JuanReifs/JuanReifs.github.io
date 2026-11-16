@@ -1,0 +1,146 @@
+---
+/**
+ * Botón del sistema. Se renderiza como <a> si recibe `href` y como <button> si no.
+ * El texto llega por `label` (clave i18n) o por el slot por defecto.
+ *
+ *   <Button href="#contact" label="hero.contact" icon="mail" variant="outline" />
+ *   <Button href={url} label="certs.verify" icon="external" external />
+ *   <Button label="certs.verify" disabled />        // sin enlace: desactivado
+ */
+import Icon, { type IconName } from './Icon.astro';
+import { t, type I18nKey } from '../i18n';
+
+interface Props {
+  label?: I18nKey;
+  href?: string;
+  variant?: 'primary' | 'outline' | 'ghost';
+  size?: 'md' | 'sm';
+  icon?: IconName;
+  /** Abre en pestaña nueva con rel seguro. */
+  external?: boolean;
+  /** Nombre de archivo para forzar descarga. */
+  download?: string | boolean;
+  type?: 'button' | 'submit';
+  disabled?: boolean;
+  class?: string;
+  [key: `data-${string}`]: string | undefined;
+}
+
+const {
+  label,
+  href,
+  variant = 'primary',
+  size = 'md',
+  icon,
+  external = false,
+  download,
+  type = 'button',
+  disabled = false,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const classes = ['btn', `btn--${variant}`, `btn--${size}`, className];
+const isLink = Boolean(href) && !disabled;
+---
+
+{
+  isLink ? (
+    <a
+      class:list={classes}
+      href={href}
+      download={download}
+      target={external ? '_blank' : undefined}
+      rel={external ? 'noopener noreferrer' : undefined}
+      {...rest}
+    >
+      {icon && <Icon name={icon} size={size === 'sm' ? 16 : 18} />}
+      {label ? <span data-i18n={label}>{t(label)}</span> : <slot />}
+    </a>
+  ) : (
+    <button class:list={classes} type={type} disabled={disabled} {...rest}>
+      {icon && <Icon name={icon} size={size === 'sm' ? 16 : 18} />}
+      {label ? <span data-i18n={label}>{t(label)}</span> : <slot />}
+    </button>
+  )
+}
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55em;
+    padding: 0.85em 1.5em;
+    font-weight: 600;
+    font-size: var(--text-base);
+    line-height: 1.2;
+    border-radius: var(--radius-pill);
+    border: 2px solid transparent;
+    min-width: 0;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    transition:
+      transform var(--dur) var(--ease),
+      box-shadow var(--dur) ease,
+      background-color var(--dur) ease,
+      color var(--dur) ease,
+      border-color var(--dur) ease;
+  }
+
+  .btn--sm {
+    padding: 0.55em 1.05em;
+    font-size: var(--text-sm);
+  }
+
+  .btn:hover:not(:disabled),
+  .btn:focus-visible {
+    transform: translateY(-3px) scale(1.03);
+  }
+
+  .btn:active:not(:disabled) {
+    transform: translateY(0) scale(0.98);
+  }
+
+  .btn--primary {
+    background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+    color: var(--accent-contrast);
+    box-shadow: var(--shadow-accent);
+  }
+
+  .btn--primary:hover:not(:disabled) {
+    box-shadow:
+      var(--shadow-accent),
+      0 0 0 5px var(--ring);
+  }
+
+  .btn--outline {
+    border-color: var(--accent);
+    color: var(--text);
+    background: transparent;
+  }
+
+  .btn--outline:hover:not(:disabled) {
+    background: var(--accent);
+    color: var(--accent-contrast);
+    box-shadow: var(--shadow-accent);
+  }
+
+  .btn--ghost {
+    border-color: var(--border-strong);
+    background: var(--surface);
+    color: var(--text);
+  }
+
+  .btn--ghost:hover:not(:disabled) {
+    border-color: var(--accent);
+    color: var(--accent-text);
+  }
+
+  .btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+    box-shadow: none;
+  }
+</style>

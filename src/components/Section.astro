@@ -1,0 +1,54 @@
+---
+/**
+ * Envoltorio común de las secciones de contenido (todas menos Inicio):
+ * ancla para el dock, antetítulo, título y hueco inferior para no quedar bajo el dock.
+ */
+import { t, type I18nKey } from '../i18n';
+import type { SectionId } from '../data/site';
+
+interface Props {
+  id: SectionId;
+  eyebrow: I18nKey;
+  title: I18nKey;
+}
+
+const { id, eyebrow, title } = Astro.props;
+---
+
+<section id={id} class="section" aria-labelledby={`${id}-title`} data-section>
+  <div class="container">
+    <header class="section__head reveal">
+      <p class="section__eyebrow" data-i18n={eyebrow}>{t(eyebrow)}</p>
+      <h2 id={`${id}-title`} class="section__title" data-i18n={title}>{t(title)}</h2>
+    </header>
+    <slot />
+  </div>
+</section>
+
+<style>
+  .section {
+    padding-block: var(--space-8);
+  }
+
+  .section__head {
+    margin-bottom: var(--space-7);
+  }
+
+  .section__eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--accent-text);
+    letter-spacing: 0.04em;
+    margin-bottom: var(--space-2);
+  }
+
+  .section__eyebrow::before {
+    content: '// ';
+    opacity: 0.6;
+  }
+
+  .section__title {
+    font-size: var(--text-2xl);
+    font-weight: 800;
+  }
+</style>

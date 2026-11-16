@@ -1,0 +1,103 @@
+---
+import '../styles/global.css';
+import Dock from '../components/Dock.astro';
+import { DEFAULT_LANG, t } from '../i18n';
+import { site } from '../data/site';
+---
+
+<!doctype html>
+<html lang={DEFAULT_LANG} data-theme="dark" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{t('meta.title')}</title>
+    <meta name="description" content={t('meta.description')} />
+    <meta name="author" content={site.fullName} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <meta name="theme-color" content="#0c0c14" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={t('meta.title')} />
+    <meta property="og:description" content={t('meta.description')} />
+    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site).href} />
+    <meta property="og:image" content={new URL('/og.png', Astro.site).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:site_name" content={site.fullName} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={t('meta.title')} />
+    <meta name="twitter:description" content={t('meta.description')} />
+    <meta name="twitter:image" content={new URL('/og.png', Astro.site).href} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: site.fullName,
+      url: site.url,
+      email: site.email,
+      sameAs: [site.github, site.linkedin],
+      jobTitle: t('hero.role'),
+    }).replace(/</g, '\\u003c')} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <slot name="head" />
+    <!-- Antes del primer pintado: aplica el tema guardado para que no parpadee. -->
+    <script is:inline>
+      (function () {
+        var root = document.documentElement;
+        root.classList.remove('no-js');
+        try {
+          var theme = localStorage.getItem('theme');
+          if (theme === 'light' || theme === 'dark') root.dataset.theme = theme;
+          if (localStorage.getItem('lang') === 'en') root.lang = 'en';
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main" data-i18n="nav.skip">{t('nav.skip')}</a>
+    <main id="main">
+      <slot />
+    </main>
+    <footer class="footer">
+      <div class="container">
+        <p data-i18n="footer.built">{t('footer.built')}</p>
+      </div>
+    </footer>
+    <Dock />
+    <script>
+      import '../scripts/preferences';
+      import '../scripts/dock';
+      import '../scripts/reveal';
+    </script>
+  </body>
+</html>
+
+<style>
+  .skip-link {
+    position: fixed;
+    top: var(--space-3);
+    left: var(--space-3);
+    z-index: 100;
+    padding: 0.7em 1.2em;
+    border-radius: var(--radius-pill);
+    background: var(--accent);
+    color: var(--accent-contrast);
+    font-weight: 600;
+    translate: 0 -200%;
+    transition: translate var(--dur) var(--ease);
+  }
+
+  .skip-link:focus-visible {
+    translate: 0 0;
+  }
+
+  .footer {
+    padding-block: var(--space-6) calc(var(--space-5) + var(--dock-clearance));
+    border-top: 1px solid var(--border);
+    color: var(--text-faint);
+    font-size: var(--text-sm);
+    text-align: center;
+  }
+</style>

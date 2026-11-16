@@ -1,0 +1,121 @@
+/*
+ * Tokens de diseño. Todo color, radio, sombra o duración de la web sale de aquí.
+ * Para cambiar el color de acento basta con tocar --accent-h / --accent-s.
+ */
+:root {
+  /* Acento (rojo carmesí de la referencia) */
+  --accent-h: 354;
+  --accent-s: 84%;
+  --accent: hsl(var(--accent-h) var(--accent-s) 46%);
+  --accent-strong: hsl(var(--accent-h) var(--accent-s) 38%);
+  --accent-contrast: #ffffff;
+
+  /* Superficies decorativas y contraste del dock, incluso con opacidad 0.72. */
+  --portrait-bg: #0c0c14;
+  --dock-start: hsl(var(--accent-h) 88% 34%);
+  --dock-middle: hsl(var(--accent-h) 90% 30%);
+  --dock-end: hsl(var(--accent-h) 85% 33%);
+  --dock-border: hsl(var(--accent-h) 90% 60% / 0.55);
+  --dock-shadow: 0 20px 44px -14px hsl(var(--accent-h) 90% 30% / 0.75),
+    inset 0 1px 0 rgb(255 255 255 / 0.18);
+
+  /* Tipografía */
+  --font-sans: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, 'Cascadia Code', monospace;
+  --text-xs: 0.78rem;
+  --text-sm: 0.9rem;
+  --text-base: 1rem;
+  --text-lg: 1.15rem;
+  --text-xl: clamp(1.25rem, 1rem + 1vw, 1.6rem);
+  --text-2xl: clamp(1.9rem, 1.4rem + 2.2vw, 2.8rem);
+  --text-hero: clamp(2.6rem, 1.6rem + 4.6vw, 4.6rem);
+
+  /* Espaciado y forma */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+  --container: 1120px;
+
+  /* Dock: su altura reserva hueco al final de cada sección */
+  --dock-h: 72px;
+  --dock-controls-rise: 24px;
+  --dock-gap: 18px;
+  --dock-clearance: calc(var(--dock-h) + var(--dock-gap) * 2 + var(--dock-controls-rise) + env(safe-area-inset-bottom, 0px));
+
+  /* Movimiento */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 160ms;
+  --dur: 280ms;
+}
+
+/* ───────── Tema oscuro (predeterminado) ───────── */
+:root,
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #0c0c14;
+  --bg-glow-1: hsl(var(--accent-h) 80% 22% / 0.55);
+  --bg-glow-2: hsl(240 40% 18% / 0.5);
+  --surface: rgb(255 255 255 / 0.04);
+  --surface-hover: rgb(255 255 255 / 0.07);
+  --surface-solid: #15151f;
+  --border: rgb(255 255 255 / 0.1);
+  --border-strong: rgb(255 255 255 / 0.2);
+  --text: #f5f5f7;
+  --text-muted: #b4b4c2;
+  --text-faint: #8a8a9a;
+  /* Acento usado como texto sobre el fondo (más claro para que contraste) */
+  --accent-text: hsl(var(--accent-h) 100% 78%);
+  --accent-soft: hsl(var(--accent-h) var(--accent-s) 50% / 0.14);
+  --accent-border: hsl(var(--accent-h) var(--accent-s) 55% / 0.4);
+  --ring: hsl(var(--accent-h) var(--accent-s) 55% / 0.28);
+  /* Disco de fondo del retrato */
+  --disc-from: hsl(var(--accent-h) 85% 42% / 0.55);
+  --disc-to: hsl(var(--accent-h) 80% 18% / 0.35);
+  --success: #4ade80;
+  --danger: #ff8a8a;
+  --shadow: 0 18px 50px -18px rgb(0 0 0 / 0.7);
+  --shadow-accent: 0 14px 34px -12px hsl(var(--accent-h) var(--accent-s) 45% / 0.7);
+}
+
+/* ───────── Tema claro ───────── */
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #faf6f5;
+  --bg-glow-1: hsl(var(--accent-h) 90% 80% / 0.45);
+  --bg-glow-2: hsl(30 80% 88% / 0.6);
+  --surface: rgb(255 255 255 / 0.72);
+  --surface-hover: #ffffff;
+  --surface-solid: #ffffff;
+  --border: rgb(30 10 15 / 0.1);
+  --border-strong: rgb(30 10 15 / 0.22);
+  --text: #1c1418;
+  --text-muted: #51474d;
+  --text-faint: #6e646a;
+  --accent-text: hsl(var(--accent-h) var(--accent-s) 38%);
+  --accent-soft: hsl(var(--accent-h) var(--accent-s) 46% / 0.09);
+  --accent-border: hsl(var(--accent-h) var(--accent-s) 46% / 0.35);
+  --ring: hsl(var(--accent-h) var(--accent-s) 46% / 0.25);
+  --disc-from: hsl(var(--accent-h) 95% 88%);
+  --disc-to: hsl(var(--accent-h) 85% 72%);
+  --success: #15803d;
+  --danger: #b91c1c;
+  --shadow: 0 18px 44px -20px rgb(60 20 30 / 0.28);
+  --shadow-accent: 0 14px 30px -12px hsl(var(--accent-h) var(--accent-s) 45% / 0.5);
+}
+
+/* Reserva global: también la usan el hero, el footer y el foco al desplazarse. */
+@media (max-width: 639px) {
+  :root {
+    --dock-h: 60px;
+    --dock-controls-rise: 52px;
+  }
+}

@@ -1,0 +1,125 @@
+---
+import { Image } from 'astro:assets';
+import Section from './Section.astro';
+import Button from './Button.astro';
+import { attr, t } from '../i18n';
+import { site } from '../data/site';
+import portrait from '../assets/de-pie-con-portatil.png';
+
+const paragraphs = ['about.p1', 'about.p2', 'about.p3', 'about.p4'] as const;
+const education = [
+  { title: 'about.edu.dam.title', meta: 'about.edu.dam.meta' },
+  { title: 'about.edu.bach.title', meta: 'about.edu.bach.meta' },
+] as const;
+---
+
+<Section id="about" eyebrow="about.eyebrow" title="about.title">
+  <div class="about__grid">
+    <div class="about__visual reveal">
+      <Image
+        src={portrait}
+        alt={t('about.photoAlt')}
+        data-i18n-attr={attr({ alt: 'about.photoAlt' })}
+        widths={[320, 480, 720]}
+        sizes="(max-width: 860px) calc(100vw - 2.5rem), 440px"
+        loading="lazy"
+      />
+    </div>
+    <div class="about__content reveal">
+      <div class="about__copy">
+        {paragraphs.map((key) => <p data-i18n={key}>{t(key)}</p>)}
+      </div>
+      <div class="about__education">
+        <h3 class="about__heading" data-i18n="about.education">{t('about.education')}</h3>
+        <ul class="about__entries">
+          {education.map((entry) => (
+            <li class="about__entry">
+              <p class="about__degree" data-i18n={entry.title}>{t(entry.title)}</p>
+              <p class="about__meta" data-i18n={entry.meta}>{t(entry.meta)}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="about__international">
+        <h3 class="about__heading" data-i18n="about.international">{t('about.international')}</h3>
+        <p class="about__meta" data-i18n="about.international.text">{t('about.international.text')}</p>
+      </div>
+      <div class="about__actions">
+        <Button label="about.github" href={site.github} icon="github" variant="primary" external />
+        <Button label="about.linkedin" href={site.linkedin} icon="linkedin" variant="outline" external />
+      </div>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .about__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: start;
+    gap: var(--space-7);
+  }
+
+  .about__visual {
+    overflow: hidden;
+    background: var(--portrait-bg);
+    border: 1px solid var(--accent-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .about__visual :global(img) {
+    width: 100%;
+    height: auto;
+    max-height: 520px;
+    object-fit: contain;
+    object-position: center bottom;
+  }
+
+  .about__content,
+  .about__copy,
+  .about__entries {
+    display: grid;
+    gap: var(--space-4);
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .about__content {
+    gap: var(--space-6);
+  }
+
+  .about__copy,
+  .about__meta {
+    color: var(--text-muted);
+  }
+
+  .about__heading {
+    margin-bottom: var(--space-4);
+    font-size: var(--text-lg);
+  }
+
+  .about__entry {
+    padding-left: var(--space-4);
+    border-left: 2px solid var(--accent-border);
+  }
+
+  .about__degree {
+    font-weight: 600;
+  }
+
+  .about__meta {
+    font-size: var(--text-sm);
+  }
+
+  .about__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  @media (max-width: 860px) {
+    .about__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>
