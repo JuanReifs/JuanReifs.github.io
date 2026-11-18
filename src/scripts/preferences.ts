@@ -3,7 +3,8 @@
  * - El tema se aplica con `data-theme` en <html>; los colores salen de tokens.css.
  * - El idioma sustituye el texto de todo elemento con `data-i18n="clave"` y los
  *   atributos declarados en `data-i18n-attr="atributo:clave;atributo:clave"`.
- * Ambas elecciones se guardan en localStorage.
+ * Ambas elecciones se guardan en localStorage. Sin tema guardado se usa el del
+ * navegador (`prefers-color-scheme`), que se aplica antes del primer pintado en Base.astro.
  */
 import { DEFAULT_LANG, dictionaries, isLang, type I18nKey, type Lang } from '../i18n';
 
@@ -92,6 +93,13 @@ const savedLang = read('lang');
 if (isLang(savedLang) && savedLang !== DEFAULT_LANG) applyLang(savedLang);
 else applyLang(DEFAULT_LANG);
 applyTheme(currentTheme());
+
+// Sin elección guardada, el tema sigue al del navegador también en directo.
+matchMedia('(prefers-color-scheme: light)').addEventListener('change', (event) => {
+  const saved = read('theme');
+  if (saved === 'light' || saved === 'dark') return;
+  applyTheme(event.matches ? 'light' : 'dark');
+});
 
 document.querySelectorAll<HTMLElement>('[data-theme-toggle]').forEach((btn) => {
   btn.addEventListener('click', () => {

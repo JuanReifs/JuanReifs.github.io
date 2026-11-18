@@ -115,8 +115,7 @@ export const es = {
   'contact.err.message': 'Escribe un mensaje de al menos 10 caracteres.',
   'contact.direct': 'O escríbeme directamente a',
 
-  // Pie y meta
-  'footer.built': 'Hecho con Astro. Diseñado y desplegado por Juan Reifs García.',
+  // Meta
   'meta.title': 'Juan Reifs García · Desarrollador de Aplicaciones Multiplataforma',
   'meta.description':
     'Portfolio de Juan Reifs García, estudiante de DAM en Madrid orientado a backend, cloud y Linux. Disponible para prácticas.',

@@ -104,7 +104,6 @@ export const en: Dictionary = {
   'contact.err.message': 'Enter a message of at least 10 characters.',
   'contact.direct': 'Or email me directly at',
 
-  'footer.built': 'Built with Astro. Designed and deployed by Juan Reifs García.',
   'meta.title': 'Juan Reifs García · Multiplatform Application Developer',
   'meta.description':
     'Portfolio of Juan Reifs García, a software development student in Madrid focused on backend, cloud and Linux. Available for internships.',

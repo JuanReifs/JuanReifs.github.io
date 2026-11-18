@@ -52,7 +52,32 @@ body::before {
 
 :root[data-theme='light'] {
   --bg-photo: url('../assets/ModoClaro.png');
-  --bg-veil: rgb(250 246 245 / 0.68);
+  --bg-veil: rgb(250 246 245 / 0.45);
+}
+
+/* Tema claro: el texto que va directamente sobre la imagen (fuera de las cajas)
+   usa el color de texto principal y un contorno suave del color de fondo que lo
+   separa de la imagen. Dentro de tarjetas, botones, chips y la píldora de estado
+   todo se queda como estaba. */
+:root[data-theme='light'] main {
+  --text-muted: var(--text);
+  text-shadow:
+    0 0 1px var(--bg),
+    0 0 2px var(--bg),
+    0 0 4px var(--bg),
+    0 0 8px var(--bg);
+}
+
+:root[data-theme='light'] main :is(.card, .btn, .chip, .status) {
+  --text-muted: #51474d;
+  text-shadow: none;
+}
+
+/* En móvil la imagen se recorta por la zona más detallada (los acantilados) */
+@media (max-width: 860px) {
+  :root[data-theme='light'] {
+    --bg-veil: rgb(250 246 245 / 0.58);
+  }
 }
 
 h1,

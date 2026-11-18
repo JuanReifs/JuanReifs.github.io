@@ -42,11 +42,15 @@ import { site } from '../data/site';
     }).replace(/</g, '\\u003c')} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <slot name="head" />
-    <!-- Antes del primer pintado: aplica el tema guardado para que no parpadee. -->
+    <!-- Antes del primer pintado: aplica el tema guardado o, si no hay, el del
+         navegador (prefers-color-scheme), para que no parpadee. -->
     <script is:inline>
       (function () {
         var root = document.documentElement;
         root.classList.remove('no-js');
+        if (window.matchMedia && matchMedia('(prefers-color-scheme: light)').matches) {
+          root.dataset.theme = 'light';
+        }
         try {
           var theme = localStorage.getItem('theme');
           if (theme === 'light' || theme === 'dark') root.dataset.theme = theme;
@@ -60,11 +64,6 @@ import { site } from '../data/site';
     <main id="main">
       <slot />
     </main>
-    <footer class="footer">
-      <div class="container">
-        <p data-i18n="footer.built">{t('footer.built')}</p>
-      </div>
-    </footer>
     <Dock />
     <script>
       import '../scripts/preferences';
@@ -93,11 +92,8 @@ import { site } from '../data/site';
     translate: 0 0;
   }
 
-  .footer {
-    padding-block: var(--space-6) calc(var(--space-5) + var(--dock-clearance));
-    border-top: 1px solid var(--border);
-    color: var(--text-faint);
-    font-size: var(--text-sm);
-    text-align: center;
+  /* Hueco final para que el dock flotante no tape el final de la última sección */
+  main {
+    padding-bottom: var(--dock-clearance);
   }
 </style>
