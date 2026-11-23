@@ -23,7 +23,7 @@ export const es = {
   'hero.greeting': 'Hola, soy',
   'hero.role': 'Desarrollador de Aplicaciones Multiplataforma',
   'hero.intro':
-    'Soy Juan Reifs García, estudiante de 2º de DAM en Madrid. Me interesan el backend, los servidores y la infraestructura cloud, y uso Linux a diario.',
+    'Soy Juan Reifs García, estudiante de 2.º de DAM en Madrid. Me gusta entender cómo funcionan las cosas por dentro, y la mejor forma que conozco de aprenderlo es montándolas yo mismo.',
   'hero.metric.hours': 'Prácticas (500 h al acabar)',
   'hero.metric.projects': 'Proyectos',
   'hero.metric.english': 'Inglés (Cambridge)',

@@ -19,7 +19,7 @@ export const en: Dictionary = {
   'hero.greeting': "Hi, I'm",
   'hero.role': 'Multiplatform Application Developer',
   'hero.intro':
-    "I'm Juan Reifs García, a second-year software development (DAM) student in Madrid. I'm into backend, servers and cloud infrastructure, and I use Linux every day.",
+    "I'm Juan Reifs García, a second-year software development (DAM) student in Madrid. I like understanding how things work under the hood, and the best way I know to learn that is to build them myself.",
   'hero.metric.hours': 'Internship (500 h when done)',
   'hero.metric.projects': 'Projects',
   'hero.metric.english': 'English (Cambridge)',
