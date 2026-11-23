@@ -35,13 +35,15 @@ export const es = {
   'about.eyebrow': 'Quién soy',
   'about.title': 'Sobre mí',
   'about.p1':
-    'Estudio 2º de Desarrollo de Aplicaciones Multiplataforma y lo que más me interesa es lo que hay detrás de una aplicación: el backend, los servidores, las redes y la infraestructura cloud.',
+    'Estudio 2.º de Desarrollo de Aplicaciones Multiplataforma y lo que más me interesa es lo que hay detrás de una aplicación: el backend, los servidores, las redes y la infraestructura cloud.',
   'about.p2':
-    'Tengo una base sólida en Java, Kotlin y bases de datos relacionales, y uso Linux a diario: trabajo sobre Arch, automatizo tareas con Bash y mantengo mis propios dotfiles.',
+    'La llegada de la IA es una de las razones por las que he decidido ampliar mi formación. Cada vez se escribe más código con ayuda de estas herramientas, así que me he animado a aprender por mi cuenta administración de sistemas, cloud, redes y ciberseguridad.',
   'about.p3':
-    'Para aprender administración de sistemas, redes y contenedores estoy montando un servidor doméstico sobre un Asus eeePC de 2006 con 2 GB de RAM. Si funciona ahí, funciona en cualquier parte.',
+    'Tengo una base sólida en Java, Kotlin y bases de datos relacionales. Uso Linux a diario: trabajo sobre Arch, y eso me ha servido para aprender Bash.',
   'about.p4':
-    'Busco hacer las prácticas del ciclo en un equipo donde pueda seguir formándome y, si es posible, continuar trabajando allí después.',
+    'Para poner en práctica lo que aprendo de administración de sistemas, redes y contenedores, estoy montando un servidor doméstico en un Asus Eee PC de 2006 con 2 GB de RAM. Si funciona ahí, funciona en cualquier parte. Mi idea es convertirlo en un proxy que controle los dispositivos conectados a la wifi y sus conexiones.',
+  'about.p5':
+    'Busco un equipo en el que hacer las prácticas del ciclo, aportar lo que ya sé y seguir aprendiendo de quienes trabajan con estos sistemas a diario. Estoy abierto a trabajar en software, sistemas o cloud, porque mi principal objetivo es seguir ampliando mis conocimientos. Si surge la oportunidad, me gustaría continuar en el equipo después de las prácticas.',
   'about.strengths': 'Cómo trabajo',
   'about.strength.learn': 'Aprendo rápido y por mi cuenta',
   'about.strength.team': 'Trabajo bien en equipo',

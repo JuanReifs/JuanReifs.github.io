@@ -30,13 +30,15 @@ export const en: Dictionary = {
   'about.eyebrow': 'Who I am',
   'about.title': 'About me',
   'about.p1':
-    "I'm in the second year of a higher diploma in Multiplatform Application Development, and what I enjoy most is what sits behind an app: backend, servers, networking and cloud infrastructure.",
+    "I'm in the second year of a higher diploma in Multiplatform Application Development, and what interests me most is what sits behind an app: backend, servers, networking and cloud infrastructure.",
   'about.p2':
-    'I have a solid foundation in Java, Kotlin and relational databases, and I use Linux daily: I work on Arch, automate tasks with Bash and maintain my own dotfiles.',
+    "The arrival of AI is one of the reasons I decided to broaden my training. More and more code is written with these tools, so I've started teaching myself system administration, cloud, networking and cybersecurity.",
   'about.p3':
-    "To learn system administration, networking and containers I'm building a home server on a 2006 Asus eeePC with 2 GB of RAM. If it runs there, it runs anywhere.",
+    'I have a solid foundation in Java, Kotlin and relational databases. I use Linux every day: I work on Arch, which is how I learned Bash.',
   'about.p4':
-    "I'm looking to do my course internship in a team where I can keep learning and, if possible, stay on afterwards.",
+    "To put what I learn about system administration, networking and containers into practice, I'm building a home server on a 2006 Asus Eee PC with 2 GB of RAM. If it runs there, it runs anywhere. My plan is to turn it into a proxy that manages the devices on my Wi-Fi and their connections.",
+  'about.p5':
+    "I'm looking for a team where I can do my course internship, contribute what I already know and keep learning from people who work with these systems every day. I'm open to software, systems or cloud work, because my main goal is to keep expanding my knowledge. If the opportunity arises, I'd like to stay with the team after the internship.",
   'about.strengths': 'How I work',
   'about.strength.learn': 'I learn fast and on my own',
   'about.strength.team': 'I work well in a team',
