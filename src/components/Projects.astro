@@ -1,52 +1,117 @@
 ---
+/**
+ * Proyectos. El primero (Homelab) va destacado a todo el ancho con una terminal
+ * que se escribe sola al entrar en pantalla (scripts/terminal.ts). Sin JS o con
+ * movimiento reducido, la terminal se muestra completa desde el principio.
+ */
 import Section from './Section.astro';
 import Button from './Button.astro';
 import Icon from './Icon.astro';
 import { t } from '../i18n';
-import { projects } from '../data/projects';
+import { projects, type Project } from '../data/projects';
+
+const [featured, ...rest] = projects;
+
+/**
+ * Salida de la terminal del homelab. Solo datos reales del servidor
+ * (ver projects.homelab.desc); cámbialos si el montaje evoluciona.
+ */
+const terminal: { cmd: string; out: string[] }[] = [
+  { cmd: 'hostnamectl | grep -E "Operating|Hardware"', out: ['Operating System: Debian GNU/Linux 12 (bookworm)', '  Hardware Model: ASUS Eee PC'] },
+  { cmd: 'uname -m && free -h | grep Mem', out: ['i686', 'Mem:  2.0Gi'] },
+  { cmd: 'docker ps --format "{{.Image}}"', out: ['postgres'] },
+];
+
+const statusKey = (p: Project) => (p.status === 'wip' ? 'projects.status.wip' : 'projects.status.published');
 ---
 
 <Section id="projects" eyebrow="projects.eyebrow" title="projects.title">
   <div class="projects__grid">
-    {projects.map((project) => {
-      const statusKey = project.status === 'wip' ? 'projects.status.wip' : 'projects.status.published';
-      return (
-        <article class="card card--interactive projects__card reveal">
-          <span class:list={['chip', 'projects__status', { 'chip--accent': project.status === 'wip' }]}>
-            <Icon name={project.status === 'wip' ? 'clock' : 'check'} size={16} />
-            <span data-i18n={statusKey}>{t(statusKey)}</span>
+    {featured && (
+      <article class="card card--interactive projects__card projects__card--featured reveal">
+        <div class="projects__body">
+          <span class:list={['chip', 'projects__status', { 'chip--accent': featured.status === 'wip' }]}>
+            <Icon name={featured.status === 'wip' ? 'clock' : 'check'} size={16} />
+            <span data-i18n={statusKey(featured)}>{t(statusKey(featured))}</span>
           </span>
-          <h3 class="projects__title" data-i18n={project.title}>{t(project.title)}</h3>
-          <p class="projects__description" data-i18n={project.description}>{t(project.description)}</p>
+          <h3 class="projects__title" data-i18n={featured.title}>{t(featured.title)}</h3>
+          <p class="projects__description" data-i18n={featured.description}>{t(featured.description)}</p>
           <ul class="projects__tech">
-            {project.tech.map((technology) => <li class="chip">{technology}</li>)}
+            {featured.tech.map((technology) => <li class="chip">{technology}</li>)}
           </ul>
           <footer class="projects__footer">
-            {project.repoUrl ? (
-              <Button label="projects.repo" href={project.repoUrl} icon="github" size="sm" variant="ghost" external />
+            {featured.repoUrl ? (
+              <Button label="projects.repo" href={featured.repoUrl} icon="github" size="sm" variant="ghost" external />
             ) : (
               <p class="projects__soon" data-i18n="projects.repoSoon">{t('projects.repoSoon')}</p>
             )}
           </footer>
-        </article>
-      );
-    })}
+        </div>
+
+        <div class="term" data-terminal aria-hidden="true" translate="no">
+          <div class="term__bar">
+            <span class="term__light"></span><span class="term__light"></span><span class="term__light"></span>
+            <span class="term__name">juan@homelab: ~</span>
+          </div>
+          <pre class="term__screen"><code>{terminal.map((line) => (
+            <>
+              <span class="term__line" data-term-cmd><span class="term__prompt">$ </span><span data-term-text>{line.cmd}</span></span>
+              {line.out.map((out) => <span class="term__line term__out" data-term-out>{out}</span>)}
+            </>
+          ))}<span class="term__line"><span class="term__prompt">$ </span><span class="term__caret"></span></span></code></pre>
+        </div>
+      </article>
+    )}
+
+    {rest.map((project) => (
+      <article class="card card--interactive projects__card reveal">
+        <span class:list={['chip', 'projects__status', { 'chip--accent': project.status === 'wip' }]}>
+          <Icon name={project.status === 'wip' ? 'clock' : 'check'} size={16} />
+          <span data-i18n={statusKey(project)}>{t(statusKey(project))}</span>
+        </span>
+        <h3 class="projects__title" data-i18n={project.title}>{t(project.title)}</h3>
+        <p class="projects__description" data-i18n={project.description}>{t(project.description)}</p>
+        <ul class="projects__tech">
+          {project.tech.map((technology) => <li class="chip">{technology}</li>)}
+        </ul>
+        <footer class="projects__footer">
+          {project.repoUrl ? (
+            <Button label="projects.repo" href={project.repoUrl} icon="github" size="sm" variant="ghost" external />
+          ) : (
+            <p class="projects__soon" data-i18n="projects.repoSoon">{t('projects.repoSoon')}</p>
+          )}
+        </footer>
+      </article>
+    ))}
   </div>
 </Section>
+
+<script>
+  import '../scripts/terminal';
+</script>
 
 <style>
   .projects__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-5);
   }
 
-  .projects__card {
+  .projects__card,
+  .projects__body {
     display: flex;
     flex-direction: column;
     gap: var(--space-5);
     min-width: 0;
     overflow-wrap: anywhere;
+  }
+
+  .projects__card--featured {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    align-items: stretch;
+    gap: clamp(1.5rem, 4vw, 3rem);
   }
 
   .projects__status {
@@ -56,6 +121,10 @@ import { projects } from '../data/projects';
 
   .projects__title {
     font-size: var(--text-xl);
+  }
+
+  .projects__card--featured .projects__title {
+    font-size: var(--text-2xl);
   }
 
   .projects__description,
@@ -84,5 +153,113 @@ import { projects } from '../data/projects';
 
   .projects__soon {
     font-size: var(--text-sm);
+  }
+
+  /* ───────── Terminal (siempre oscura, en los dos temas) ───────── */
+  .term {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 260px;
+    border-radius: var(--radius-sm);
+    background: #0b0b12;
+    border: 1px solid rgb(255 255 255 / 0.12);
+    box-shadow:
+      0 24px 50px -24px rgb(0 0 0 / 0.8),
+      0 0 0 1px hsl(var(--accent-h) 80% 50% / 0.08);
+    overflow: hidden;
+    text-shadow: none;
+    transition: box-shadow var(--dur) ease;
+  }
+
+  .projects__card--featured:hover .term {
+    box-shadow:
+      0 28px 60px -24px rgb(0 0 0 / 0.85),
+      0 0 0 1px hsl(var(--accent-h) 80% 55% / 0.35),
+      0 0 50px -10px hsl(var(--accent-h) 90% 45% / 0.35);
+  }
+
+  .term__bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 14px;
+    background: #15151f;
+    border-bottom: 1px solid rgb(255 255 255 / 0.08);
+  }
+
+  .term__light {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #3a3a48;
+  }
+
+  .term__light:first-child {
+    background: hsl(var(--accent-h) 80% 55%);
+  }
+
+  .term__name {
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: 39px;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: #8a8a9a;
+  }
+
+  .term__screen {
+    flex: 1;
+    margin: 0;
+    padding: 16px 18px;
+    font-family: var(--font-mono);
+    font-size: clamp(0.72rem, 0.66rem + 0.25vw, 0.85rem);
+    line-height: 1.7;
+    color: #d6d6e0;
+    /* El formato del código no debe crear líneas vacías: cada línea es un bloque */
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .term__line {
+    display: block;
+    white-space: pre-wrap;
+    min-height: 1.7em;
+  }
+
+  .term__prompt {
+    color: #4ade80;
+    font-weight: 700;
+  }
+
+  .term__out {
+    color: #9a9aac;
+  }
+
+  .term__caret {
+    display: inline-block;
+    width: 0.6em;
+    height: 1.1em;
+    vertical-align: text-bottom;
+    background: hsl(var(--accent-h) 100% 72%);
+    animation: caret 1s steps(1) infinite;
+  }
+
+  /* Mientras se escribe, las líneas pendientes no se ven */
+  .term[data-state='typing'] [data-term-pending] {
+    visibility: hidden;
+  }
+
+  @keyframes caret {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .projects__grid,
+    .projects__card--featured {
+      grid-template-columns: minmax(0, 1fr);
+    }
   }
 </style>

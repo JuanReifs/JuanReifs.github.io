@@ -6,6 +6,7 @@ export const es = {
   // Navegación
   'nav.home': 'Inicio',
   'nav.about': 'Sobre mí',
+  'nav.journey': 'Trayectoria',
   'nav.skills': 'Habilidades',
   'nav.certifications': 'Certificaciones',
   'nav.projects': 'Proyectos',
@@ -41,17 +42,39 @@ export const es = {
     'Para aprender administración de sistemas, redes y contenedores estoy montando un servidor doméstico sobre un Asus eeePC de 2006 con 2 GB de RAM. Si funciona ahí, funciona en cualquier parte.',
   'about.p4':
     'Busco hacer las prácticas del ciclo en un equipo donde pueda seguir formándome y, si es posible, continuar trabajando allí después.',
-  'about.education': 'Formación',
-  'about.edu.dam.title': 'Técnico Superior en Desarrollo de Aplicaciones Multiplataforma (DAM)',
-  'about.edu.dam.meta': 'CES Juan Pablo II · Alcorcón (Madrid) · Cursando 2º, 1º superado',
-  'about.edu.bach.title': 'Bachillerato Científico-Tecnológico',
-  'about.edu.bach.meta': 'Colegio Escolapias Carabanchel · Madrid',
-  'about.international': 'Experiencia internacional',
-  'about.international.text':
-    'Intercambios durante el Bachillerato: una semana en Alemania, una semana en Londres y 30 días conviviendo con una familia en Irlanda.',
+  'about.strengths': 'Cómo trabajo',
+  'about.strength.learn': 'Aprendo rápido y por mi cuenta',
+  'about.strength.team': 'Trabajo bien en equipo',
+  'about.strength.reliable': 'Soy responsable y puntual',
+  'about.strength.initiative': 'Tomo la iniciativa',
+  'about.strength.pressure': 'Trabajo bien bajo presión',
   'about.github': 'GitHub',
   'about.linkedin': 'LinkedIn',
   'about.photoAlt': 'Ilustración de Juan de pie programando con un portátil',
+
+  // Trayectoria
+  'journey.eyebrow': 'De dónde vengo',
+  'journey.title': 'Trayectoria',
+  'journey.bach.tag': 'Antes de DAM',
+  'journey.bach.title': 'Bachillerato Científico-Tecnológico',
+  'journey.bach.meta': 'Colegio Escolapias Carabanchel · Madrid',
+  'journey.bach.text':
+    'Intercambios durante el Bachillerato: una semana en Alemania, una semana en Londres y 30 días conviviendo con una familia en Irlanda.',
+  'journey.dam.tag': '1º superado · cursando 2º',
+  'journey.dam.title': 'Técnico Superior en Desarrollo de Aplicaciones Multiplataforma (DAM)',
+  'journey.dam.meta': 'CES Juan Pablo II · Alcorcón (Madrid)',
+  'journey.dam.text':
+    'Java, Kotlin, bases de datos relacionales, apps Android e interfaces con JavaFX e Hibernate.',
+  'journey.lab.tag': 'Por mi cuenta',
+  'journey.lab.title': 'Homelab en un eeePC de 2006',
+  'journey.lab.meta': 'Debian 12 sin entorno gráfico · 2 GB de RAM',
+  'journey.lab.text':
+    'Lo uso para practicar lo que aún no da el ciclo: Docker, PostgreSQL, Spring Boot y redes locales.',
+  'journey.fct.tag': 'Prácticas en empresa (FCT)',
+  'journey.fct.title': 'Prácticas del ciclo',
+  'journey.fct.text':
+    'Me interesa un equipo de backend o infraestructura donde seguir aprendiendo, en España o fuera.',
+  'journey.fct.progress': 'Horas de prácticas completadas',
 
   // Habilidades
   'skills.eyebrow': 'Con qué trabajo',

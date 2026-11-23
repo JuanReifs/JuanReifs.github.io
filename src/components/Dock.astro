@@ -35,7 +35,7 @@ import { navItems } from '../data/site';
   </div>
 
   <nav class="dock" aria-label={t('nav.label')} data-i18n-attr={attr({ 'aria-label': 'nav.label' })}>
-    <ul class="dock__list">
+    <ul class="dock__list" style={`--dock-items: ${navItems.length}`}>
       {
         navItems.map((item, index) => (
           <li class="dock__item">
@@ -82,7 +82,7 @@ import { navItems } from '../data/site';
 
   .dock__list {
     display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-columns: repeat(var(--dock-items, 6), minmax(0, 1fr));
     height: 100%;
   }
 

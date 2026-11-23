@@ -4,6 +4,7 @@ import type { Dictionary } from './es';
 export const en: Dictionary = {
   'nav.home': 'Home',
   'nav.about': 'About',
+  'nav.journey': 'Journey',
   'nav.skills': 'Skills',
   'nav.certifications': 'Certificates',
   'nav.projects': 'Projects',
@@ -36,17 +37,38 @@ export const en: Dictionary = {
     "To learn system administration, networking and containers I'm building a home server on a 2006 Asus eeePC with 2 GB of RAM. If it runs there, it runs anywhere.",
   'about.p4':
     "I'm looking to do my course internship in a team where I can keep learning and, if possible, stay on afterwards.",
-  'about.education': 'Education',
-  'about.edu.dam.title': 'Higher Technician in Multiplatform Application Development (DAM)',
-  'about.edu.dam.meta': 'CES Juan Pablo II · Alcorcón (Madrid) · 2nd year in progress, 1st completed',
-  'about.edu.bach.title': 'Science and Technology Baccalaureate',
-  'about.edu.bach.meta': 'Colegio Escolapias Carabanchel · Madrid',
-  'about.international': 'International experience',
-  'about.international.text':
-    'Exchanges during secondary school: a week in Germany, a week in London and 30 days living with a host family in Ireland.',
+  'about.strengths': 'How I work',
+  'about.strength.learn': 'I learn fast and on my own',
+  'about.strength.team': 'I work well in a team',
+  'about.strength.reliable': "I'm reliable and punctual",
+  'about.strength.initiative': 'I take the initiative',
+  'about.strength.pressure': 'I work well under pressure',
   'about.github': 'GitHub',
   'about.linkedin': 'LinkedIn',
   'about.photoAlt': 'Illustration of Juan standing and coding on a laptop',
+
+  'journey.eyebrow': 'Where I come from',
+  'journey.title': 'Journey',
+  'journey.bach.tag': 'Before DAM',
+  'journey.bach.title': 'Science and Technology Baccalaureate',
+  'journey.bach.meta': 'Colegio Escolapias Carabanchel · Madrid',
+  'journey.bach.text':
+    'Exchanges during secondary school: a week in Germany, a week in London and 30 days living with a host family in Ireland.',
+  'journey.dam.tag': '1st year passed · in 2nd year',
+  'journey.dam.title': 'Higher Technician in Multiplatform Application Development (DAM)',
+  'journey.dam.meta': 'CES Juan Pablo II · Alcorcón (Madrid)',
+  'journey.dam.text':
+    'Java, Kotlin, relational databases, Android apps and desktop interfaces with JavaFX and Hibernate.',
+  'journey.lab.tag': 'On my own',
+  'journey.lab.title': 'A homelab on a 2006 eeePC',
+  'journey.lab.meta': 'Headless Debian 12 · 2 GB of RAM',
+  'journey.lab.text':
+    "I use it to practise what the course doesn't cover yet: Docker, PostgreSQL, Spring Boot and local networking.",
+  'journey.fct.tag': 'Work placement (FCT)',
+  'journey.fct.title': 'Course internship',
+  'journey.fct.text':
+    "I'm after a backend or infrastructure team where I can keep learning, in Spain or abroad.",
+  'journey.fct.progress': 'Internship hours completed',
 
   'skills.eyebrow': 'What I work with',
   'skills.title': 'Skills',

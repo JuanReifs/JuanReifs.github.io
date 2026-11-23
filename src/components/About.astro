@@ -7,9 +7,12 @@ import { site } from '../data/site';
 import portrait from '../assets/de-pie-con-portatil.png';
 
 const paragraphs = ['about.p1', 'about.p2', 'about.p3', 'about.p4'] as const;
-const education = [
-  { title: 'about.edu.dam.title', meta: 'about.edu.dam.meta' },
-  { title: 'about.edu.bach.title', meta: 'about.edu.bach.meta' },
+const strengths = [
+  'about.strength.learn',
+  'about.strength.team',
+  'about.strength.reliable',
+  'about.strength.initiative',
+  'about.strength.pressure',
 ] as const;
 ---
 
@@ -29,20 +32,11 @@ const education = [
       <div class="about__copy">
         {paragraphs.map((key) => <p data-i18n={key}>{t(key)}</p>)}
       </div>
-      <div class="about__education">
-        <h3 class="about__heading" data-i18n="about.education">{t('about.education')}</h3>
-        <ul class="about__entries">
-          {education.map((entry) => (
-            <li class="about__entry">
-              <p class="about__degree" data-i18n={entry.title}>{t(entry.title)}</p>
-              <p class="about__meta" data-i18n={entry.meta}>{t(entry.meta)}</p>
-            </li>
-          ))}
+      <div class="about__strengths">
+        <h3 class="about__heading" data-i18n="about.strengths">{t('about.strengths')}</h3>
+        <ul class="about__chips">
+          {strengths.map((key) => <li class="chip" data-i18n={key}>{t(key)}</li>)}
         </ul>
-      </div>
-      <div class="about__international">
-        <h3 class="about__heading" data-i18n="about.international">{t('about.international')}</h3>
-        <p class="about__meta" data-i18n="about.international.text">{t('about.international.text')}</p>
       </div>
       <div class="about__actions">
         <Button label="about.github" href={site.github} icon="github" variant="primary" external />
@@ -68,6 +62,7 @@ const education = [
   }
 
   .about__visual :global(img) {
+    transition: scale 600ms var(--ease);
     width: 100%;
     height: auto;
     max-height: 520px;
@@ -75,9 +70,12 @@ const education = [
     object-position: center bottom;
   }
 
+  .about__visual:hover :global(img) {
+    scale: 1.03;
+  }
+
   .about__content,
-  .about__copy,
-  .about__entries {
+  .about__copy {
     display: grid;
     gap: var(--space-4);
     min-width: 0;
@@ -88,8 +86,7 @@ const education = [
     gap: var(--space-6);
   }
 
-  .about__copy,
-  .about__meta {
+  .about__copy {
     color: var(--text-muted);
   }
 
@@ -98,17 +95,10 @@ const education = [
     font-size: var(--text-lg);
   }
 
-  .about__entry {
-    padding-left: var(--space-4);
-    border-left: 2px solid var(--accent-border);
-  }
-
-  .about__degree {
-    font-weight: 600;
-  }
-
-  .about__meta {
-    font-size: var(--text-sm);
+  .about__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
   }
 
   .about__actions {

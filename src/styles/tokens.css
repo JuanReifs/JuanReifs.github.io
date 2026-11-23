@@ -62,8 +62,6 @@
 :root[data-theme='dark'] {
   color-scheme: dark;
   --bg: #0c0c14;
-  --bg-glow-1: hsl(var(--accent-h) 80% 22% / 0.55);
-  --bg-glow-2: hsl(240 40% 18% / 0.5);
   --surface: rgb(255 255 255 / 0.04);
   --surface-hover: rgb(255 255 255 / 0.07);
   --surface-solid: #15151f;
@@ -90,9 +88,6 @@
 :root[data-theme='light'] {
   color-scheme: light;
   --bg: #faf6f5;
-  /* Sin brillos: teñían de rosa la imagen de fondo (ModoClaro.png) */
-  --bg-glow-1: transparent;
-  --bg-glow-2: transparent;
   --surface: rgb(255 255 255 / 0.72);
   --surface-hover: #ffffff;
   --surface-solid: #ffffff;

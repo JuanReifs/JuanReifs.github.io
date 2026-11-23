@@ -51,4 +51,23 @@ const { id, eyebrow, title } = Astro.props;
     font-size: var(--text-2xl);
     font-weight: 800;
   }
+
+  /* Trazo de acento bajo el título: se dibuja cuando la cabecera aparece */
+  .section__title::after {
+    content: '';
+    display: block;
+    width: 3.5rem;
+    height: 4px;
+    margin-top: var(--space-3);
+    border-radius: 99px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-text));
+    transform-origin: left;
+    scale: 0 1;
+    transition: scale 900ms var(--ease) 250ms;
+  }
+
+  .section__head:global(.is-visible) .section__title::after,
+  :global(.no-js) .section__title::after {
+    scale: 1 1;
+  }
 </style>

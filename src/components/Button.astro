@@ -104,9 +104,28 @@ const isLink = Boolean(href) && !disabled;
   }
 
   .btn--primary {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
     background: linear-gradient(135deg, var(--accent), var(--accent-strong));
     color: var(--accent-contrast);
     box-shadow: var(--shadow-accent);
+  }
+
+  /* Destello que cruza el botón al pasar el puntero */
+  .btn--primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 0.35) 50%, transparent 70%);
+    translate: -110% 0;
+    transition: translate 700ms var(--ease);
+  }
+
+  .btn--primary:hover:not(:disabled)::after,
+  .btn--primary:focus-visible::after {
+    translate: 110% 0;
   }
 
   .btn--primary:hover:not(:disabled) {

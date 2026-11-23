@@ -7,6 +7,10 @@ export interface Skill {
   nameKey?: I18nKey;
   /** Matiz opcional traducible, p. ej. "básico". */
   note?: I18nKey;
+  /** Logo a color en /public/logos (CC0, ver icons-credits.json). */
+  logo?: string;
+  /** Si no hay logo oficial (SQL, POO, JavaFX…), icono de interfaz. */
+  glyph?: 'database' | 'boxes' | 'window' | 'cable' | 'braces';
 }
 
 export interface SkillCategory {
@@ -29,26 +33,31 @@ export const skillGroups: readonly SkillGroup[] = [
       {
         title: 'skills.cat.languages',
         skills: [
-          { name: 'Java' },
-          { name: 'Kotlin' },
-          { name: 'SQL' },
-          { name: 'Bash' },
-          { name: 'Python', note: 'skills.note.basic' },
+          { name: 'Java', logo: 'java.svg' },
+          { name: 'Kotlin', logo: 'kotlin.svg' },
+          { name: 'SQL', glyph: 'database' },
+          { name: 'Bash', logo: 'bash.svg' },
+          { name: 'Python', note: 'skills.note.basic', logo: 'python.svg' },
         ],
       },
       {
         title: 'skills.cat.development',
         skills: [
-          { name: 'POO', nameKey: 'skills.name.oop' },
-          { name: 'Android' },
-          { name: 'JavaFX' },
-          { name: 'JDBC' },
-          { name: 'Hibernate' },
+          { name: 'POO', nameKey: 'skills.name.oop', glyph: 'boxes' },
+          { name: 'Android', logo: 'android.svg' },
+          { name: 'JavaFX', glyph: 'window' },
+          { name: 'JDBC', glyph: 'cable' },
+          { name: 'Hibernate', logo: 'hibernate.svg' },
         ],
       },
       {
         title: 'skills.cat.tools',
-        skills: [{ name: 'Git' }, { name: 'GitHub' }, { name: 'Linux (Arch)' }, { name: 'MySQL' }],
+        skills: [
+          { name: 'Git', logo: 'git-icon.svg' },
+          { name: 'GitHub', logo: 'github.svg' },
+          { name: 'Arch Linux', logo: 'archlinux.svg' },
+          { name: 'MySQL', logo: 'mysql.svg' },
+        ],
       },
     ],
   },
@@ -59,11 +68,11 @@ export const skillGroups: readonly SkillGroup[] = [
       {
         title: 'skills.cat.learning',
         skills: [
-          { name: 'Spring Boot' },
-          { name: 'APIs REST', nameKey: 'skills.name.rest' },
-          { name: 'PostgreSQL' },
-          { name: 'Docker' },
-          { name: 'Debian Server' },
+          { name: 'Spring Boot', logo: 'spring.svg' },
+          { name: 'APIs REST', nameKey: 'skills.name.rest', glyph: 'braces' },
+          { name: 'PostgreSQL', logo: 'postgres.svg' },
+          { name: 'Docker', logo: 'docker.svg' },
+          { name: 'Debian Server', logo: 'debian.svg' },
         ],
       },
     ],

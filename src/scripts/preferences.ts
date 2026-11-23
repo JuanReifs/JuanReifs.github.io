@@ -87,6 +87,17 @@ function applyTheme(theme: Theme): void {
   });
 }
 
+// ───────── Fondo del otro tema ─────────
+// Cuando la página ya ha cargado, se pide en segundo plano la imagen del tema
+// inactivo (ver global.css): así cambiar de tema no espera a ninguna descarga.
+function preloadOtherBackground(): void {
+  const idle = window.requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 400));
+  idle(() => root.classList.add('bg-ready'));
+}
+
+if (document.readyState === 'complete') preloadOtherBackground();
+else window.addEventListener('load', preloadOtherBackground, { once: true });
+
 // ───────── Arranque ─────────
 
 const savedLang = read('lang');

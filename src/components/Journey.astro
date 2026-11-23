@@ -1,0 +1,270 @@
+---
+/**
+ * Trayectoria: línea de tiempo vertical (Bachillerato → DAM → homelab → prácticas).
+ * La línea se "dibuja" y la barra de prácticas se rellena al entrar en pantalla
+ * (clase .is-visible, la pone scripts/reveal.ts). Sin JS se ve todo completo.
+ */
+import Section from './Section.astro';
+import { t, type I18nKey } from '../i18n';
+import { site } from '../data/site';
+
+interface Step {
+  id: string;
+  tag: I18nKey;
+  title: I18nKey;
+  meta?: I18nKey;
+  text: I18nKey;
+  current?: boolean;
+}
+
+const steps: Step[] = [
+  { id: 'bach', tag: 'journey.bach.tag', title: 'journey.bach.title', meta: 'journey.bach.meta', text: 'journey.bach.text' },
+  { id: 'dam', tag: 'journey.dam.tag', title: 'journey.dam.title', meta: 'journey.dam.meta', text: 'journey.dam.text', current: true },
+  { id: 'lab', tag: 'journey.lab.tag', title: 'journey.lab.title', meta: 'journey.lab.meta', text: 'journey.lab.text', current: true },
+  { id: 'fct', tag: 'journey.fct.tag', title: 'journey.fct.title', text: 'journey.fct.text', current: true },
+];
+
+const progress = Math.round((site.internshipHours / site.internshipTotal) * 100);
+---
+
+<Section id="journey" eyebrow="journey.eyebrow" title="journey.title">
+  <ol class="journey reveal">
+    {steps.map((step, index) => (
+      <li class:list={['journey__step', { 'journey__step--current': step.current }]} style={`--i: ${index}`}>
+        <span class="journey__dot" aria-hidden="true"></span>
+        <div class="card journey__card">
+          <p class="journey__tag" data-i18n={step.tag}>{t(step.tag)}</p>
+          <h3 class="journey__title" data-i18n={step.title}>{t(step.title)}</h3>
+          {step.meta && <p class="journey__meta" data-i18n={step.meta}>{t(step.meta)}</p>}
+          <p class="journey__text" data-i18n={step.text}>{t(step.text)}</p>
+          {step.id === 'fct' && (
+            <div class="progress" data-progress style={`--progress: ${progress}%`}>
+              <div class="progress__head">
+                <span id="fct-progress-label" data-i18n="journey.fct.progress">{t('journey.fct.progress')}</span>
+                <span class="progress__value">
+                  <span data-count-to={site.internshipHours}>{site.internshipHours}</span> / {site.internshipTotal} h
+                </span>
+              </div>
+              <div
+                class="progress__track"
+                role="progressbar"
+                aria-labelledby="fct-progress-label"
+                aria-valuemin="0"
+                aria-valuemax={site.internshipTotal}
+                aria-valuenow={site.internshipHours}
+                aria-valuetext={`${site.internshipHours} / ${site.internshipTotal} h`}
+              >
+                <span class="progress__fill"></span>
+              </div>
+            </div>
+          )}
+        </div>
+      </li>
+    ))}
+  </ol>
+</Section>
+
+<style>
+  .journey {
+    --rail: 2px;
+    --dot: 16px;
+    --gutter: clamp(2.25rem, 4vw, 3rem);
+    position: relative;
+    display: grid;
+    gap: var(--space-5);
+    max-width: 820px;
+    padding-left: var(--gutter);
+    /* La lista entera aparece sin desplazarse: así la línea no "baila". */
+    transform: none;
+  }
+
+  /* Raíl de fondo + raíl de acento que crece de arriba abajo */
+  .journey::before,
+  .journey::after {
+    content: '';
+    position: absolute;
+    left: calc(var(--dot) / 2 - var(--rail) / 2);
+    top: 0.6rem;
+    bottom: 0.6rem;
+    width: var(--rail);
+    border-radius: var(--rail);
+  }
+
+  .journey::before {
+    background: var(--border-strong);
+  }
+
+  .journey::after {
+    background: linear-gradient(var(--accent-text), var(--accent));
+    transform-origin: top;
+    scale: 1 0;
+    transition: scale 1400ms var(--ease) 150ms;
+  }
+
+  .journey.is-visible::after,
+  :global(.no-js) .journey::after {
+    scale: 1 1;
+  }
+
+  .journey__step {
+    position: relative;
+    opacity: 0;
+    translate: 0 14px;
+    transition:
+      opacity 600ms var(--ease),
+      translate 600ms var(--ease);
+    transition-delay: calc(250ms + var(--i) * 260ms);
+  }
+
+  .journey.is-visible .journey__step,
+  :global(.no-js) .journey__step {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  .journey__dot {
+    position: absolute;
+    left: calc(var(--gutter) * -1);
+    top: 1.6rem;
+    width: var(--dot);
+    height: var(--dot);
+    border-radius: 50%;
+    background: var(--surface-solid);
+    border: 2px solid var(--accent-text);
+    z-index: 1;
+  }
+
+  .journey__step--current .journey__dot {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 0 var(--ring);
+    animation: dot-ping 2.6s ease-out infinite;
+    animation-delay: calc(var(--i) * 0.4s);
+  }
+
+  @keyframes dot-ping {
+    0% {
+      box-shadow: 0 0 0 0 hsl(var(--accent-h) var(--accent-s) 55% / 0.5);
+    }
+    70%,
+    100% {
+      box-shadow: 0 0 0 10px hsl(var(--accent-h) var(--accent-s) 55% / 0);
+    }
+  }
+
+  .journey__card {
+    display: grid;
+    gap: var(--space-2);
+    min-width: 0;
+  }
+
+  .journey__card:hover {
+    border-color: var(--accent-border);
+    background: var(--surface-hover);
+  }
+
+  .journey__tag {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+  }
+
+  .journey__title {
+    font-size: var(--text-lg);
+  }
+
+  .journey__meta {
+    font-size: var(--text-sm);
+    font-weight: 500;
+  }
+
+  .journey__text {
+    color: var(--text-muted);
+  }
+
+  /* ───────── Progreso de prácticas ───────── */
+  .progress {
+    display: grid;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+  }
+
+  .progress__head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  .progress__value {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .progress__track {
+    position: relative;
+    height: 10px;
+    border-radius: var(--radius-pill);
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-border);
+    overflow: hidden;
+  }
+
+  .progress__fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: var(--progress);
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--accent-strong), var(--accent));
+    /* El brillo no debe salirse de la parte rellena */
+    overflow: hidden;
+    transform-origin: left;
+    scale: 0 1;
+    /* Misma duración y curva que el contador (scripts/motion.ts) */
+    transition: scale 1600ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  /* Brillo que recorre la barra una vez rellena */
+  .progress__fill::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.45), transparent);
+    translate: -100% 0;
+    animation: bar-shine 3.2s ease-in-out 2s infinite;
+  }
+
+  @keyframes bar-shine {
+    0% {
+      translate: -100% 0;
+    }
+    45%,
+    100% {
+      translate: 100% 0;
+    }
+  }
+
+  /* .is-filled la pone scripts/motion.ts cuando la barra entra en pantalla */
+  .progress:global(.is-filled) .progress__fill,
+  :global(.no-js) .progress__fill {
+    scale: 1 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .journey::after,
+    .progress__fill {
+      scale: 1 1;
+    }
+
+    .journey__step {
+      opacity: 1;
+      translate: 0 0;
+    }
+  }
+</style>

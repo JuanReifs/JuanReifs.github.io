@@ -3,10 +3,26 @@ import '../styles/global.css';
 import Dock from '../components/Dock.astro';
 import { DEFAULT_LANG, t } from '../i18n';
 import { site } from '../data/site';
+import { getImage } from 'astro:assets';
+import bgDark from '../assets/ModoOscuro.png';
+import bgLight from '../assets/ModoClaro.png';
+
+// Fondos de cada tema en WebP: ~1672 px para escritorio y 900 px para móvil.
+const bg = async (src: ImageMetadata, width: number) =>
+  (await getImage({ src, width, format: 'webp', quality: 72 })).src;
+const backgrounds = {
+  '--bg-dark-lg': await bg(bgDark, bgDark.width),
+  '--bg-dark-sm': await bg(bgDark, 900),
+  '--bg-light-lg': await bg(bgLight, bgLight.width),
+  '--bg-light-sm': await bg(bgLight, 900),
+};
+const backgroundVars = Object.entries(backgrounds)
+  .map(([name, url]) => `${name}: url('${url}')`)
+  .join('; ');
 ---
 
 <!doctype html>
-<html lang={DEFAULT_LANG} data-theme="dark" class="no-js">
+<html lang={DEFAULT_LANG} data-theme="dark" class="no-js" style={backgroundVars}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -60,6 +76,7 @@ import { site } from '../data/site';
     </script>
   </head>
   <body>
+    <div class="scroll-progress" aria-hidden="true"></div>
     <a class="skip-link" href="#main" data-i18n="nav.skip">{t('nav.skip')}</a>
     <main id="main">
       <slot />
@@ -69,6 +86,7 @@ import { site } from '../data/site';
       import '../scripts/preferences';
       import '../scripts/dock';
       import '../scripts/reveal';
+      import '../scripts/motion';
     </script>
   </body>
 </html>

@@ -18,12 +18,21 @@ import { skillGroups } from '../data/skills';
             <article class="card skills__card reveal">
               <h4 class="skills__title" data-i18n={category.title}>{t(category.title)}</h4>
               <ul class="skills__list">
-                {category.skills.map((skill) => (
-                  <li class:list={['chip', { 'chip--accent': group.id === 'learning' }]}>
-                    {skill.nameKey ? (
-                      <span data-i18n={skill.nameKey}>{t(skill.nameKey)}</span>
-                    ) : <span>{skill.name}</span>}
-                    {skill.note && <span class="chip__note" data-i18n={skill.note}>{t(skill.note)}</span>}
+                {category.skills.map((skill, index) => (
+                  <li class="tech" style={`--c: ${index}`}>
+                    <span class="tech__tile" aria-hidden="true">
+                      {skill.logo ? (
+                        <img src={`/logos/${skill.logo}`} alt="" width="28" height="28" loading="lazy" decoding="async" />
+                      ) : (
+                        skill.glyph && <Icon name={skill.glyph} size={24} />
+                      )}
+                    </span>
+                    <span class="tech__text" translate={skill.nameKey ? undefined : 'no'}>
+                      {skill.nameKey ? (
+                        <span class="tech__name" data-i18n={skill.nameKey}>{t(skill.nameKey)}</span>
+                      ) : <span class="tech__name">{skill.name}</span>}
+                      {skill.note && <span class="tech__note" data-i18n={skill.note}>{t(skill.note)}</span>}
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -70,13 +79,87 @@ import { skillGroups } from '../data/skills';
   }
 
   .skills__list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 140px), 1fr));
+    gap: var(--space-4) var(--space-2);
   }
 
-  .skills__list .chip {
-    max-width: 100%;
-    flex-wrap: wrap;
+  /* Tecnología: logo en una baldosa clara (igual en los dos temas) + nombre */
+  .tech {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .tech__tile {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: #f6f4f0;
+    color: hsl(var(--accent-h) var(--accent-s) 40%);
+    box-shadow:
+      inset 0 0 0 1px rgb(0 0 0 / 0.06),
+      0 6px 14px -8px rgb(0 0 0 / 0.5);
+    transition:
+      transform var(--dur) var(--ease),
+      box-shadow var(--dur) ease;
+  }
+
+  .tech__tile img {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+  }
+
+  .tech:hover .tech__tile {
+    transform: translateY(-3px) scale(1.06);
+    box-shadow:
+      inset 0 0 0 1px rgb(0 0 0 / 0.06),
+      0 10px 20px -8px hsl(var(--accent-h) 80% 40% / 0.55);
+  }
+
+  .tech__text {
+    display: grid;
+    min-width: 0;
+    line-height: 1.25;
+  }
+
+  .tech__name {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    /* Nunca partir un nombre propio por la mitad (PostgreSQL, Hibernate…) */
+    overflow-wrap: normal;
+    hyphens: none;
+  }
+
+  .tech__note {
+    font-size: var(--text-xs);
+    color: var(--text-faint);
+  }
+
+  /* Las tecnologías aparecen una a una cuando su tarjeta entra en pantalla */
+  .skills__card:global(.reveal) .tech {
+    opacity: 0;
+    translate: 0 10px;
+    transition:
+      opacity 450ms var(--ease) calc(200ms + var(--c) * 70ms),
+      translate 450ms var(--ease) calc(200ms + var(--c) * 70ms);
+  }
+
+  .skills__card:global(.is-visible) .tech,
+  :global(.no-js) .skills__card .tech {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .skills__card:global(.reveal) .tech {
+      opacity: 1;
+      translate: 0 0;
+    }
   }
 </style>

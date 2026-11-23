@@ -12,6 +12,8 @@ export const site = {
   cv: '/CV_Juan_Reifs_Garcia.pdf',
   /** Horas de prácticas hechas hasta ahora. Actualízalo según avances (objetivo: 500). */
   internshipHours: 180,
+  /** Horas totales de las prácticas del ciclo. */
+  internshipTotal: 500,
 } as const;
 
 /**
@@ -22,17 +24,18 @@ export const site = {
 export const WEB3FORMS_KEY: string = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
 export const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
 
-export type SectionId = 'home' | 'about' | 'skills' | 'certifications' | 'projects' | 'contact';
+export type SectionId = 'home' | 'about' | 'journey' | 'skills' | 'certifications' | 'projects' | 'contact';
 
 export interface NavItem {
   id: SectionId;
   label: I18nKey;
-  icon: 'home' | 'user' | 'code' | 'award' | 'folder' | 'mail';
+  icon: 'home' | 'user' | 'route' | 'code' | 'award' | 'folder' | 'mail';
 }
 
 export const navItems: readonly NavItem[] = [
   { id: 'home', label: 'nav.home', icon: 'home' },
   { id: 'about', label: 'nav.about', icon: 'user' },
+  { id: 'journey', label: 'nav.journey', icon: 'route' },
   { id: 'skills', label: 'nav.skills', icon: 'code' },
   { id: 'certifications', label: 'nav.certifications', icon: 'award' },
   { id: 'projects', label: 'nav.projects', icon: 'folder' },

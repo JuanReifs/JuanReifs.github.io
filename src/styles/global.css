@@ -29,30 +29,74 @@ body {
     color var(--dur) ease;
 }
 
-/* Brillo ambiental fijo, como en la referencia: rojo a la derecha, azul a la izquierda */
-body::before {
+/*
+ * Fondo fijo: una capa por tema (::before oscuro, ::after claro) que se funden al
+ * cambiar de tema. Las URLs (WebP optimizados, escritorio y móvil) las pone
+ * Base.astro en <html> como --bg-dark-lg, --bg-light-sm, etc.
+ * Al cargar solo se descarga la imagen del tema activo; la otra se pide cuando la
+ * página ya ha cargado (clase .bg-ready, scripts/preferences.ts), así el cambio es inmediato.
+ * El velo, con el color de fondo de cada tema, atenúa la imagen para que el texto se lea.
+ */
+body::before,
+body::after {
   content: '';
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background:
-    radial-gradient(60% 70% at 100% 45%, var(--bg-glow-1), transparent 70%),
-    radial-gradient(50% 60% at 0% 0%, var(--bg-glow-2), transparent 70%),
-    linear-gradient(var(--bg-veil), var(--bg-veil)),
-    var(--bg-photo) center / cover no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition: opacity 500ms ease;
 }
 
-/* Imagen de fondo fija según el tema (solo se descarga la del tema activo).
-   El velo, con el color de fondo de cada tema, atenúa la imagen para que el texto se lea. */
-:root[data-theme='dark'] {
-  --bg-photo: url('../assets/ModoOscuro.png');
-  --bg-veil: rgb(12 12 20 / 0.62);
+/* Capa oscura: brillo rojo a la derecha, azul a la izquierda */
+body::before {
+  --veil: rgb(12 12 20 / 0.62);
+  background-image:
+    radial-gradient(60% 70% at 100% 45%, hsl(var(--accent-h) 80% 22% / 0.55), transparent 70%),
+    radial-gradient(50% 60% at 0% 0%, hsl(240 40% 18% / 0.5), transparent 70%),
+    linear-gradient(var(--veil), var(--veil)),
+    var(--bg-dark-photo, none);
+  background-color: #0c0c14;
+  opacity: 0;
 }
 
-:root[data-theme='light'] {
-  --bg-photo: url('../assets/ModoClaro.png');
-  --bg-veil: rgb(250 246 245 / 0.45);
+/* Capa clara: sin brillos (teñían de rosa la imagen) */
+body::after {
+  --veil: rgb(250 246 245 / 0.45);
+  background-image:
+    linear-gradient(var(--veil), var(--veil)),
+    var(--bg-light-photo, none);
+  background-color: #faf6f5;
+  opacity: 0;
+}
+
+:root[data-theme='dark'] body::before,
+:root[data-theme='light'] body::after {
+  opacity: 1;
+}
+
+:root[data-theme='dark'],
+:root.bg-ready {
+  --bg-dark-photo: var(--bg-dark-lg);
+}
+
+:root[data-theme='light'],
+:root.bg-ready {
+  --bg-light-photo: var(--bg-light-lg);
+}
+
+@media (max-width: 860px) {
+  :root[data-theme='dark'],
+  :root.bg-ready {
+    --bg-dark-photo: var(--bg-dark-sm);
+  }
+
+  :root[data-theme='light'],
+  :root.bg-ready {
+    --bg-light-photo: var(--bg-light-sm);
+  }
 }
 
 /* Tema claro: el texto que va directamente sobre la imagen (fuera de las cajas)
@@ -75,8 +119,8 @@ body::before {
 
 /* En móvil la imagen se recorta por la zona más detallada (los acantilados) */
 @media (max-width: 860px) {
-  :root[data-theme='light'] {
-    --bg-veil: rgb(250 246 245 / 0.58);
+  body::after {
+    --veil: rgb(250 246 245 / 0.58);
   }
 }
 
@@ -164,6 +208,8 @@ button {
 
 /* Tarjeta base del sistema: superficie translúcida con borde y hover */
 .card {
+  position: relative;
+  isolation: isolate;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
@@ -182,6 +228,27 @@ button {
   border-color: var(--accent-border);
   background: var(--surface-hover);
   box-shadow: var(--shadow);
+}
+
+/* Foco de luz que sigue al puntero (--mx/--my los pone scripts/motion.ts) */
+.card--interactive::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 0%),
+    hsl(var(--accent-h) var(--accent-s) 55% / 0.13),
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity var(--dur) ease;
+}
+
+.card--interactive:hover::before {
+  opacity: 1;
 }
 
 /* Etiqueta pequeña (tecnologías, estados) */
@@ -223,13 +290,81 @@ button {
   font-weight: 400;
 }
 
-/* Aparición al entrar en pantalla (la clase .is-visible la pone scripts/reveal.ts) */
+/* Aparición al entrar en pantalla (la clase .is-visible la pone scripts/reveal.ts).
+   --reveal-delay escalona los elementos que entran a la vez (también en reveal.ts). */
 .reveal {
   opacity: 0;
-  transform: translateY(18px);
+  transform: translateY(24px);
   transition:
-    opacity 600ms var(--ease),
-    transform 600ms var(--ease);
+    opacity 700ms var(--ease),
+    transform 700ms var(--ease);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+/* Terminada la aparición (.is-done, reveal.ts), las tarjetas recuperan su hover ágil */
+.reveal.is-done.card {
+  transition:
+    opacity var(--dur) ease,
+    transform var(--dur) var(--ease),
+    border-color var(--dur) ease,
+    background-color var(--dur) ease,
+    box-shadow var(--dur) ease;
+}
+
+/* Entrada del hero al cargar, una sola vez. Puro CSS: no depende de JS. */
+.enter {
+  animation: enter 1000ms var(--ease) both;
+  animation-delay: calc(120ms + var(--d, 0) * 110ms);
+}
+
+.enter--zoom {
+  animation-name: enter-zoom;
+  animation-duration: 1300ms;
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    translate: 0 28px;
+    filter: blur(8px);
+  }
+}
+
+@keyframes enter-zoom {
+  from {
+    opacity: 0;
+    scale: 0.88;
+    filter: blur(10px);
+  }
+}
+
+/* Barra de progreso de lectura (solo donde hay animaciones ligadas al scroll) */
+.scroll-progress {
+  display: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    display: block;
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 60;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-strong), var(--accent), var(--accent-text));
+    transform-origin: left;
+    animation: scroll-progress linear both;
+    animation-timeline: scroll(root);
+    pointer-events: none;
+  }
+
+  @keyframes scroll-progress {
+    from {
+      scale: 0 1;
+    }
+    to {
+      scale: 1 1;
+    }
+  }
 }
 
 .reveal.is-visible,
@@ -247,8 +382,14 @@ button {
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+
+  .scroll-progress {
+    display: none;
   }
 
   .reveal {
