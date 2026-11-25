@@ -8,8 +8,8 @@ export const site = {
   email: 'reifsgarcia.juan@gmail.com',
   github: 'https://github.com/JuanReifs',
   linkedin: 'https://es.linkedin.com/in/juan-reifs-garc%C3%ADa-5b7a90393',
-  /** Archivo dentro de /public */
-  cv: '/CV_Juan_Reifs_Garcia.pdf',
+  /** Archivo dentro de /public (versión por defecto, español; la inglesa sale de 'hero.cvFile') */
+  cv: '/CV_Juan_Reifs_Garcia_ES.pdf',
   /** Horas de prácticas hechas hasta ahora. Actualízalo según avances (objetivo: 500). */
   internshipHours: 180,
   /** Horas totales de las prácticas del ciclo. */

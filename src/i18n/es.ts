@@ -28,6 +28,7 @@ export const es = {
   'hero.metric.projects': 'Proyectos',
   'hero.metric.english': 'Inglés (Cambridge)',
   'hero.cv': 'Descargar CV',
+  'hero.cvFile': '/CV_Juan_Reifs_Garcia_ES.pdf',
   'hero.contact': 'Contáctame',
   'hero.photoAlt': 'Retrato ilustrado de Juan Reifs García',
 

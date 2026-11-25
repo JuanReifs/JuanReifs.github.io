@@ -24,6 +24,7 @@ export const en: Dictionary = {
   'hero.metric.projects': 'Projects',
   'hero.metric.english': 'English (Cambridge)',
   'hero.cv': 'Download CV',
+  'hero.cvFile': '/CV_Juan_Reifs_Garcia_EN.pdf',
   'hero.contact': 'Contact me',
   'hero.photoAlt': 'Illustrated portrait of Juan Reifs García',
 

@@ -84,7 +84,13 @@ const metrics: { value: string; count?: number; suffix?: string; label: I18nKey 
       </dl>
 
       <div class="hero__actions enter" style="--d: 6">
-        <Button href={site.cv} label="hero.cv" icon="download" download />
+        <Button
+          href={t('hero.cvFile')}
+          label="hero.cv"
+          icon="download"
+          download
+          data-i18n-attr={attr({ href: 'hero.cvFile' })}
+        />
         <Button href="#contact" label="hero.contact" icon="mail" variant="outline" />
       </div>
     </div>
